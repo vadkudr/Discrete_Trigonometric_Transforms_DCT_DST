@@ -1,0 +1,362 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Relations between DCT_I and DCT_II</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-06-27">
+      <meta name="m-file" content="DCTI_DCTII"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Relations between DCT_I and DCT_II</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DCT_I matrix definition</a></li>
+               <li><a href="#3">DCT_II matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DCT_I through DCT_II</a></li>
+               <li><a href="#7">Check expression of DCT_II through DCT_I</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DCT_I matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq177923.png"> </p><pre class="codeinput">N=8;
+DCT1=cos(pi/N*(0:N)'*(0:N))
+</pre><pre class="codeoutput">DCT1 =
+  Columns 1 through 8
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9239    0.7071    0.3827    0.0000   -0.3827   -0.7071   -0.9239
+    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071   -0.0000    0.7071
+    1.0000    0.3827   -0.7071   -0.9239   -0.0000    0.9239    0.7071   -0.3827
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000   -0.0000
+    1.0000   -0.3827   -0.7071    0.9239    0.0000   -0.9239    0.7071    0.3827
+    1.0000   -0.7071   -0.0000    0.7071   -1.0000    0.7071    0.0000   -0.7071
+    1.0000   -0.9239    0.7071   -0.3827   -0.0000    0.3827   -0.7071    0.9239
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+  Column 9
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+</pre><h2>DCT_II matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq322378.png"> </p><pre class="codeinput">DCT2=cos(pi/N*(0:N-1)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DCT2 =
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    0.9808    0.8315    0.5556    0.1951   -0.1951   -0.5556   -0.8315   -0.9808
+    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827    0.3827    0.9239
+    0.8315   -0.1951   -0.9808   -0.5556    0.5556    0.9808    0.1951   -0.8315
+    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071    0.7071
+    0.5556   -0.9808    0.1951    0.8315   -0.8315   -0.1951    0.9808   -0.5556
+    0.3827   -0.9239    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827
+    0.1951   -0.5556    0.8315   -0.9808    0.9808   -0.8315    0.5556   -0.1951
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>From [1] we know that DCTI matrix can be expressed in terms of Tschebyshev polynomials</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq171151.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq312072.png"> </p>
+         <p>are roots of polynomial</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq79873.png"> </p>
+         <p>DCTII matrix can be analogously expressed as</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq1161121.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq190088.png"> </p>
+         <p>are roots of polynomial</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq72570.png"> </p>
+         <p>Because there exist relation</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq29593.png"> </p>
+         <p>and</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq33509.png"> </p>
+         <p>we can express DCTI through DSTII</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq39740573.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq5163673.png"> </p>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq219712.png"> </p><pre class="codeinput">B=diag(ones(1,N+1))+diag(ones(1,N),1); B(end,:)=2*(-1).^(0:N); B(1,1)=2; B(end-1,end)=2; B=B/2;
+D=diag([cos(pi/2/N*((0:N-1))), 1]);
+</pre><h2>Check expression of DCT_I through DCT_II<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq1538777.png"> </p><pre class="codeinput">DCT2a=eye(N+1);DCT2a(1:end-1,1:end-1)=DCT2;
+inv(D)*DCT2a*B
+</pre><pre class="codeoutput">ans =
+  Columns 1 through 8
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9239    0.7071    0.3827    0.0000   -0.3827   -0.7071   -0.9239
+    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071   -0.0000    0.7071
+    1.0000    0.3827   -0.7071   -0.9239   -0.0000    0.9239    0.7071   -0.3827
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000   -0.0000
+    1.0000   -0.3827   -0.7071    0.9239    0.0000   -0.9239    0.7071    0.3827
+    1.0000   -0.7071   -0.0000    0.7071   -1.0000    0.7071    0.0000   -0.7071
+    1.0000   -0.9239    0.7071   -0.3827   -0.0000    0.3827   -0.7071    0.9239
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+  Column 9
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+</pre><p>Check computation of DCTI transform</p><pre class="codeinput">x=randn(1,N+1)
+y=x*DCT1                      <span class="comment">% true result</span>
+y1=x*inv(D)*DCT2a*B           <span class="comment">% compute DCTI using DCTII transform</span>
+</pre><pre class="codeoutput">x =
+  Columns 1 through 8
+   -0.2135   -0.1989    0.3075   -0.5723   -0.9776   -0.4468    1.0821    2.3726
+  Column 9
+    0.2293
+y =
+  Columns 1 through 8
+    1.5823   -3.4144    3.2511   -0.7632   -2.3515    0.9730   -1.2643    1.4333
+  Column 9
+   -0.7269
+y1 =
+  Columns 1 through 8
+    1.5823   -3.4144    3.2511   -0.7632   -2.3515    0.9730   -1.2643    1.4333
+  Column 9
+   -0.7269
+</pre><h2>Check expression of DCT_II through DCT_I<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DCTII_eq1457499.png"> </p><pre class="codeinput">D*DCT1*inv(B)
+</pre><pre class="codeoutput">ans =
+  Columns 1 through 8
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    0.9808    0.8315    0.5556    0.1951   -0.1951   -0.5556   -0.8315   -0.9808
+    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827    0.3827    0.9239
+    0.8315   -0.1951   -0.9808   -0.5556    0.5556    0.9808    0.1951   -0.8315
+    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071    0.7071
+    0.5556   -0.9808    0.1951    0.8315   -0.8315   -0.1951    0.9808   -0.5556
+    0.3827   -0.9239    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827
+    0.1951   -0.5556    0.8315   -0.9808    0.9808   -0.8315    0.5556   -0.1951
+         0         0   -0.0000    0.0000         0         0         0         0
+  Column 9
+         0
+    0.0000
+    0.0000
+    0.0000
+    0.0000
+   -0.0000
+    0.0000
+   -0.0000
+    1.0000
+</pre><p>Check computation of DCTII transform</p><pre class="codeinput">x=randn(1,N)
+y=x*DCT2                      <span class="comment">% true result</span>
+y1=[x 0]*D*DCT1*inv(B)        <span class="comment">% compute DCTII using DCTI transform</span>
+</pre><pre class="codeoutput">x =
+   -0.2666    0.7017   -0.4876    1.8625    1.1069   -1.2276   -0.6699    1.3409
+y =
+    1.6256    0.0621   -2.0430   -2.0108    4.4566   -0.9202   -1.2960   -2.0072
+y1 =
+  Columns 1 through 8
+    1.6256    0.0621   -2.0430   -2.0108    4.4566   -0.9202   -1.2960   -2.0072
+  Column 9
+    0.0000
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Relations between DCT_I and DCT_II
+
+%% Definitions
+% Result of transform is
+% y=x*T, 
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DCT_I matrix definition
+%
+% $$\mathbf{DCTI} = \left\{cos\left( {\frac{\pi }{N}kl } \right) \right\}_{k,l}$$
+%
+N=8;
+DCT1=cos(pi/N*(0:N)'*(0:N))
+
+%% DCT_II matrix definition
+%
+% $$\mathbf{DCTII} = \left\{ sin \left( {\frac{\pi }{N}k(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+DCT2=cos(pi/N*(0:N-1)'*((0:N-1)+1/2))
+
+%% Finding relations
+%
+% From [1] we know that DCTI matrix can be expressed in terms of
+% Tschebyshev polynomials
+%
+% $${\mathbf {DCTI}} = \left[ {T_l \left( {\alpha _k } \right)}
+% \right]_{k,l} $$
+%
+% where
+%
+% $$\alpha _k  = \cos \left( {\left( {k + 1} \right)\frac{\pi }{{N + 1}}}
+% \right),k = 0 \ldots N$$
+%
+% are roots of polynomial
+%
+% $$ U_{DCTI} (x) = 2\left( {x^2  - 1} \right)U_{N - 1} (x) $$
+%
+% DCTII matrix can be analogously expressed as
+%
+% $${\mathbf {DCTII}} = diag\left\{ {\cos \left( {k
+% \frac{\pi }{2N}} \right)} \right\}_k  \cdot \left[ {V_l \left(
+% {\beta _k } \right)} \right]_{k,l} $$
+%
+% where
+%
+% $$ \beta _k  = \cos \left( { k \frac{\pi }{{N + 1}}}
+% \right),k = 0 \ldots N - 1$$
+%
+% are roots of polynomial
+%
+% $$ U_{DCTII} (x) = 2\left( {x - 1} \right)U_{N - 1} (x) $$
+%
+% Because there exist relation
+% 
+% $$ T_l  = \frac{{V_l  + V_{l - 1} }}{2} $$
+%
+% and
+%
+% $$ \alpha _k = \beta _k, k = 0 \ldots N-1 $$
+%
+% we can express DCTI through DSTII
+%
+% $$ \begin{array}{l}
+% \mathbf {DCTI} = \left[ {T_l (\alpha _k )} \right] _{k,l} = \left[ {\begin{array}{*{20}c}
+%    {\left[ {V_l (\beta _k )} \right] _{k,l} } & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} = {\mathbf D}^{ - 1}  \cdot {\mathbf D} \cdot \left[ {\begin{array}{*{20}c}
+%    {\left[ {V_l (\beta _k )} \right] _{k,l} } & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} = \\
+%   = {\mathbf D}^{ - 1}  \cdot {\mathbf {DCTII}} \cdot {\mathbf B} \\ 
+%  \end{array} $$
+%
+% where
+%
+% $${\mathbf B} = \frac{1}{2} \left[ {\begin{array}{*{20}c}
+%    2 & 1 & {} & {} & {}  \\
+%    {} & 1 &  \ddots  & {} & {}  \\
+%    {} & {} &  \ddots  & 1 & {}  \\
+%    {} & {} & {} & 1 & 2  \\
+%    2 & { - 2} &  \cdots  & { - 2} & 2  \\
+% \end{array}} \right]$$
+%
+% $${\mathbf D} = diag\left\{ {\cos \left( {k \frac{\pi
+% }{{2N}}} \right)} \right\} _k$$ 
+%
+B=diag(ones(1,N+1))+diag(ones(1,N),1); B(end,:)=2*(-1).^(0:N); B(1,1)=2; B(end-1,end)=2; B=B/2;
+D=diag([cos(pi/2/N*((0:N-1))), 1]);
+
+%% Check expression of DCT_I through DCT_II
+%
+% $${\mathbf {DCTI}} = {\mathbf D}^{ - 1}  \cdot \left[ {\begin{array}{*{20}c}
+%    {{\mathbf {DCTII}}} & {}  \\
+%    {} &  1  \\
+% \end{array}} \right] \cdot {\mathbf B} $$
+%
+DCT2a=eye(N+1);DCT2a(1:end-1,1:end-1)=DCT2;
+inv(D)*DCT2a*B
+
+%%
+% Check computation of DCTI transform
+x=randn(1,N+1)
+y=x*DCT1                      % true result
+y1=x*inv(D)*DCT2a*B           % compute DCTI using DCTII transform
+
+%% Check expression of DCT_II through DCT_I
+%
+% $$ \left[ {\begin{array}{*{20}c}
+%    {{\mathbf {DCTII}}} & {}  \\
+%    {} & 1 \\
+% \end{array}} \right] = {\mathbf D} \cdot {\mathbf {DCTI}} \cdot {\mathbf B}^{ - 1}$$
+%
+D*DCT1*inv(B)
+%%
+% Check computation of DCTII transform
+x=randn(1,N)
+y=x*DCT2                      % true result
+y1=[x 0]*D*DCT1*inv(B)        % compute DCTII using DCTI transform
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

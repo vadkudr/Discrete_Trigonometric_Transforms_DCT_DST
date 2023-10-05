@@ -1,0 +1,412 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Relations between DCTV and DSTVI</title><meta name="generator" content="MATLAB 7.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-07-08"><meta name="DC.source" content="DCTV_DSTVI.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+
+  </style></head><body><div class="content"><h1>Relations between DCTV and DSTVI</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Definitions</a></li><li><a href="#2">DCTV matrix definition</a></li><li><a href="#3">DCTV in terms of Tschebyshev polynomials</a></li><li><a href="#4">DSTVI matrix definition</a></li><li><a href="#5">DSTVI in terms of Tschebyshev polynomials</a></li><li><a href="#6">Finding relations</a></li><li><a href="#7">Check expression of DCTV through DSTVI</a></li><li><a href="#8">Check expression of DSTVI through DCTV</a></li><li><a href="#9">Check computation of DCTV transform</a></li><li><a href="#10">Check computation of DSTVI transform</a></li></ul></div><h2>Definitions<a name="1"></a></h2><p>Transform matrix is defined for operating on column-vectors y=T*x, where y, x are column-vectors,       T    is transform matrix</p><h2>DCTV matrix definition<a name="2"></a></h2><p><img src="DCTV_DSTVI_eq95981.png" alt="$${\bf DCTV}={\left\{{\cos\left({{{\pi}\over{n-{{1}\over{2}}}}kl}\right)}\right\}}_{k,l}$$"></p><pre class="codeinput">N1=9; N=N1;
+k=0:N1-1;  l=0:N1-1;
+DCT5=cos(pi/(N-1/2)*k'*l)       <span class="comment">% display DCTV matrix</span>
+</pre><pre class="codeoutput">DCT5 =
+  Columns 1 through 7
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9325    0.7390    0.4457    0.0923   -0.2737   -0.6026
+    1.0000    0.7390    0.0923   -0.6026   -0.9830   -0.8502   -0.2737
+    1.0000    0.4457   -0.6026   -0.9830   -0.2737    0.7390    0.9325
+    1.0000    0.0923   -0.9830   -0.2737    0.9325    0.4457   -0.8502
+    1.0000   -0.2737   -0.8502    0.7390    0.4457   -0.9830    0.0923
+    1.0000   -0.6026   -0.2737    0.9325   -0.8502    0.0923    0.7390
+    1.0000   -0.8502    0.4457    0.0923   -0.6026    0.9325   -0.9830
+    1.0000   -0.9830    0.9325   -0.8502    0.7390   -0.6026    0.4457
+  Columns 8 through 9
+    1.0000    1.0000
+   -0.8502   -0.9830
+    0.4457    0.9325
+    0.0923   -0.8502
+   -0.6026    0.7390
+    0.9325   -0.6026
+   -0.9830    0.4457
+    0.7390   -0.2737
+   -0.2737    0.0923
+</pre><h2>DCTV in terms of Tschebyshev polynomials<a name="3"></a></h2><p>The DCTV matrix can be expressed in terms of Tschebyshev polynomials [1]</p><p><img src="DCTV_DSTVI_eq28569.png" alt="$${\mathbf {DCTV}} = \left[ {T_l \left( {\alpha _k } \right)} \right]_{k,l} $$"></p><p>where</p><p><img src="DCTV_DSTVI_eq67296.png" alt="$${\rm \alpha}_{k}=\cos\left({{{\left({k+1}\right){\rm \pi}}\over{N-{{1}\over{2}}}}}\right),k=-1\ldots N-2$$"></p><p>are roots of polynomial</p><p><img src="DCTV_DSTVI_eq89466.png" alt="$$U_{DCTV}=\left({x-1}\right)W_{n-1}$$"></p><pre class="codeinput">alpha=sort([roots(TschebyshevW(N-1)); 1],<span class="string">'descend'</span>);
+DCT5t=zeros(N1);
+<span class="keyword">for</span> l=0:N1-1,
+    DCT5t(:,l+1)=polyval(TschebyshevT(l),alpha)';
+<span class="keyword">end</span>
+Da5=diag(cos(0*pi/(N-1/2)*k));
+DCT5t=Da5*DCT5t                    <span class="comment">% display DCTV matrix</span>
+
+<span class="comment">% compare DCT5 and DCT5t matrices (show that both definitions above are equivalent)</span>
+max(max(abs(DCT5-DCT5t)))
+</pre><pre class="codeoutput">DCT5t =
+  Columns 1 through 7
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9325    0.7390    0.4457    0.0923   -0.2737   -0.6026
+    1.0000    0.7390    0.0923   -0.6026   -0.9830   -0.8502   -0.2737
+    1.0000    0.4457   -0.6026   -0.9830   -0.2737    0.7390    0.9325
+    1.0000    0.0923   -0.9830   -0.2737    0.9325    0.4457   -0.8502
+    1.0000   -0.2737   -0.8502    0.7390    0.4457   -0.9830    0.0923
+    1.0000   -0.6026   -0.2737    0.9325   -0.8502    0.0923    0.7390
+    1.0000   -0.8502    0.4457    0.0923   -0.6026    0.9325   -0.9830
+    1.0000   -0.9830    0.9325   -0.8502    0.7390   -0.6026    0.4457
+  Columns 8 through 9
+    1.0000    1.0000
+   -0.8502   -0.9830
+    0.4457    0.9325
+    0.0923   -0.8502
+   -0.6026    0.7390
+    0.9325   -0.6026
+   -0.9830    0.4457
+    0.7390   -0.2737
+   -0.2737    0.0923
+ans =
+   2.5746e-13
+</pre><h2>DSTVI matrix definition<a name="4"></a></h2><p><img src="DCTV_DSTVI_eq64086.png" alt="$$&#xA;{\mathbf{DSTVI}}\mathrm{{=}}\left\{{\cos\left({\frac{\mathit{\pi}}{{n}\mathrm{{+}}\frac{1}{2}}\left({{k}\mathrm{{+}}{1}}\right)\left({{l}\mathrm{{+}}\frac{1}{2}}\right)}\right)}\right\}&#xA;$$"></p><pre class="codeinput">N2=8; N=N2;
+k=0:N2-1;  l=0:N2-1;
+DST6=sin(pi/(N+1/2)*(k+1)'*(l+1/2))       <span class="comment">% display DCTV matrix</span>
+</pre><pre class="codeoutput">DST6 =
+  Columns 1 through 7
+    0.1837    0.5264    0.7980    0.9618    0.9957    0.8952    0.6737
+    0.3612    0.8952    0.9618    0.5264   -0.1837   -0.7980   -0.9957
+    0.5264    0.9957    0.3612   -0.6737   -0.9618   -0.1837    0.7980
+    0.6737    0.7980   -0.5264   -0.8952    0.3612    0.9618   -0.1837
+    0.7980    0.3612   -0.9957    0.1837    0.8952   -0.6737   -0.5264
+    0.8952   -0.1837   -0.6737    0.9957   -0.5264   -0.3612    0.9618
+    0.9618   -0.6737    0.1837    0.3612   -0.7980    0.9957   -0.8952
+    0.9957   -0.9618    0.8952   -0.7980    0.6737   -0.5264    0.3612
+  Column 8
+    0.3612
+   -0.6737
+    0.8952
+   -0.9957
+    0.9618
+   -0.7980
+    0.5264
+   -0.1837
+</pre><h2>DSTVI in terms of Tschebyshev polynomials<a name="5"></a></h2><p>The DSTVI matrix can be expressed in terms of Tschebyshev polynomials [1]</p><p><img src="DCTV_DSTVI_eq90027.png" alt="$$&#xA;{\mathbf{DSTVI}}\mathrm{{=}}{\mathrm{\left[{{W}_{l}\left({{\mathit{\beta}}_{k}}\right)}\right]}}_{k\mathrm{,}l}&#xA;$$"></p><p>where</p><p><img src="DCTV_DSTVI_eq94572.png" alt="$${\rm \beta}_{k}=\cos\left({{{\left({k+1}\right){\rm \pi}}\over{N+{{1}\over{2}}}}}\right),k=0\ldots N-1 $$"></p><p>are roots of polynomial</p><p><img src="DCTV_DSTVI_eq24733.png" alt="$${U}_{DSTVI}\mathrm{{=}}{W}_{n}$$"></p><p><img src="DCTV_DSTVI_eq24591.png" alt="$${\mathbf{D}}_{DSTVI}\mathrm{{=}}{diag}{\mathrm{\left\{{\sin\left({\left({{k}{+}{1}}\right)\frac{\mathrm{\pi}}{{2}\left({{N}{+}\frac{1}{2}}\right)}}\right)}\right\}}}_{k}$$"></p><pre class="codeinput">beta=sort([roots(TschebyshevW(N))],<span class="string">'descend'</span>);
+DST6t=zeros(N);
+<span class="keyword">for</span> l=0:N2-1,
+    DST6t(:,l+1)=polyval(TschebyshevW(l),beta)';
+<span class="keyword">end</span>
+Db6=diag(sin(1/2*pi/(N+1/2)*(k+1)));
+DST6t=Db6*DST6t                    <span class="comment">% display DCTV matrix</span>
+
+<span class="comment">% compare DST6 and DST6t matrices (show that both definitions above are equivalent)</span>
+max(max(abs(DST6-DST6t)))
+</pre><pre class="codeoutput">DST6t =
+  Columns 1 through 7
+    0.1837    0.5264    0.7980    0.9618    0.9957    0.8952    0.6737
+    0.3612    0.8952    0.9618    0.5264   -0.1837   -0.7980   -0.9957
+    0.5264    0.9957    0.3612   -0.6737   -0.9618   -0.1837    0.7980
+    0.6737    0.7980   -0.5264   -0.8952    0.3612    0.9618   -0.1837
+    0.7980    0.3612   -0.9957    0.1837    0.8952   -0.6737   -0.5264
+    0.8952   -0.1837   -0.6737    0.9957   -0.5264   -0.3612    0.9618
+    0.9618   -0.6737    0.1837    0.3612   -0.7980    0.9957   -0.8952
+    0.9957   -0.9618    0.8952   -0.7980    0.6737   -0.5264    0.3612
+  Column 8
+    0.3612
+   -0.6737
+    0.8952
+   -0.9957
+    0.9618
+   -0.7980
+    0.5264
+   -0.1837
+ans =
+   2.3470e-13
+</pre><h2>Finding relations<a name="6"></a></h2><p>Because there exist relation</p><p><img src="DCTV_DSTVI_eq61955.png" alt="$$ T_l  = \frac{{W_l  - W_{l - 1} }}{2} $$"></p><p>and</p><p><img src="DCTV_DSTVI_eq14995.png" alt="$$&#xA;\begin{array}{l}&#xA;{{\mathrm{\alpha}}_{k}\mathrm{{=}}{\mathrm{\beta}}_{k}{\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}}\\&#xA;{{\mathrm{\alpha}}_{N}\mathrm{{=}}{1}}&#xA;\end{array}&#xA;$$"></p><p>we can express DCTV through DSTVI</p><p><img src="DCTV_DSTVI_eq82534.png" alt="$$ \begin{array}{l}&#xA;{{\mathbf{DCTV}}\mathrm{{=}}{\mathrm{\left[{{T}_{l}\left({{\mathrm{\alpha}}_{k}}\right)}\right]}}_{k\mathrm{,}l}\mathrm{{=}}{\mathrm{\left[{\begin{array}{cc}{1}&{}\\{}&{{W}_{l}\left({{\mathrm{\beta}}_{k}}\right)}\end{array}}\right]}}_{k\mathrm{,}l}\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}\left[{\begin{array}{cc}{1}&{}\\{}&{{\left({{\mathbf{D}}_{DSTVI}}\right)}^{\mathrm{{-}}{1}}\mathit{\cdot}{\mathbf{D}}_{DSTVI}\mathit{\cdot}{\left[{{W}_{l}\left({{\mathit{\beta}}_{k}}\right)}\right]}_{k\mathrm{,}l}}\end{array}}\right]\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}}\\&#xA;{\mathrm{{=}}\left[{\begin{array}{cc}{1}&{}\\{}&{{\left({{\mathbf{D}}_{DSTVI}}\right)}^{\mathrm{{-}}{1}}\mathrm{\cdot}{\mathbf{DSTVI}}}\end{array}}\right]\mathrm{\cdot}{\mathbf{B}}}&#xA;\end{array} $$"></p><p>where</p><p><img src="DCTV_DSTVI_eq85411.png" alt="$${\mathbf{B}}\mathrm{{=}}\mathrm{\frac{1}{2}}\mathrm{\left[{\begin{array}{cccccc}{2}&{2}&{2}&{\cdots}&{2}&{2}\\{2}&{{-}{1}}&{}&{}&{}&{}\\{}&{1}&{{-}{1}}&{}&{}&{}\\{}&{}&{1}&{\ddots}&{}&{}\\{}&{}&{}&{\ddots}&{{-}{1}}&{}\\{}&{}&{}&{}&{1}&{{-}{1}}\end{array}}\right]}$$"></p><pre class="codeinput">B=toeplitz([0.5 zeros(1,N-1)]',[0.5        -0.5 zeros(1,N-length([0.5        -0.5]))]);
+B(1,1)=1;
+B=[B [0; B(1:end-1,end)]];
+B=[ones(1,size(B,2)); B];
+</pre><h2>Check expression of DCTV through DSTVI<a name="7"></a></h2><p><img src="DCTV_DSTVI_eq22075.png" alt="$${\mathbf{DCTV}}\mathrm{{=}}\mathrm{\left[{\begin{array}{cc}{1}&{}\\{}&{{\left({{\mathbf{D}}_{DSTVI}}\right)}^{{-}{1}}\cdot{\mathbf{DSTVI}}}\end{array}}\right]}\mathrm{\cdot}{\mathbf{B}}$$"></p><pre class="codeinput">DCT5a=Da5*blkdiag(1,inv(Db6)*DST6)*B
+<span class="comment">% compare DCT5 and DCT5a matrices (show correctness of representation of DCTV through DSTVI)</span>
+max(max(abs(DCT5-DCT5a)))
+</pre><pre class="codeoutput">DCT5a =
+  Columns 1 through 7
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9325    0.7390    0.4457    0.0923   -0.2737   -0.6026
+    1.0000    0.7390    0.0923   -0.6026   -0.9830   -0.8502   -0.2737
+    1.0000    0.4457   -0.6026   -0.9830   -0.2737    0.7390    0.9325
+    1.0000    0.0923   -0.9830   -0.2737    0.9325    0.4457   -0.8502
+    1.0000   -0.2737   -0.8502    0.7390    0.4457   -0.9830    0.0923
+    1.0000   -0.6026   -0.2737    0.9325   -0.8502    0.0923    0.7390
+    1.0000   -0.8502    0.4457    0.0923   -0.6026    0.9325   -0.9830
+    1.0000   -0.9830    0.9325   -0.8502    0.7390   -0.6026    0.4457
+  Columns 8 through 9
+    1.0000    1.0000
+   -0.8502   -0.9830
+    0.4457    0.9325
+    0.0923   -0.8502
+   -0.6026    0.7390
+    0.9325   -0.6026
+   -0.9830    0.4457
+    0.7390   -0.2737
+   -0.2737    0.0923
+ans =
+   1.6653e-15
+</pre><h2>Check expression of DSTVI through DCTV<a name="8"></a></h2><p><img src="DCTV_DSTVI_eq87268.png" alt="$$\left[{\begin{array}{cc}{1}&{}\\{}&{\mathbf{DSTVI}}\end{array}}\right]\mathrm{{=}}\mathrm{\left[{\begin{array}{cc}{1}&{}\\{}&{{\mathbf{D}}_{DSTVI}}\end{array}}\right]}\mathrm{\cdot}{\mathbf{DCTV}}\mathrm{\cdot}{\mathbf{B}}^{\mathrm{{-}}{1}}$$"></p><pre class="codeinput">DST6a=blkdiag(1,Db6)*inv(Da5)*DCT5*inv(B);
+DST6a=DST6a(2:end,2:end)
+<span class="comment">% compare DST6 and DST6a matrices (show correctness of representation of DSTVI through DCTV)</span>
+max(max(abs(DST6-DST6a)))
+</pre><pre class="codeoutput">DST6a =
+  Columns 1 through 7
+    0.1837    0.5264    0.7980    0.9618    0.9957    0.8952    0.6737
+    0.3612    0.8952    0.9618    0.5264   -0.1837   -0.7980   -0.9957
+    0.5264    0.9957    0.3612   -0.6737   -0.9618   -0.1837    0.7980
+    0.6737    0.7980   -0.5264   -0.8952    0.3612    0.9618   -0.1837
+    0.7980    0.3612   -0.9957    0.1837    0.8952   -0.6737   -0.5264
+    0.8952   -0.1837   -0.6737    0.9957   -0.5264   -0.3612    0.9618
+    0.9618   -0.6737    0.1837    0.3612   -0.7980    0.9957   -0.8952
+    0.9957   -0.9618    0.8952   -0.7980    0.6737   -0.5264    0.3612
+  Column 8
+    0.3612
+   -0.6737
+    0.8952
+   -0.9957
+    0.9618
+   -0.7980
+    0.5264
+   -0.1837
+ans =
+   3.1086e-15
+</pre><h2>Check computation of DCTV transform<a name="9"></a></h2><pre class="codeinput">x=randn(N1,1);
+disp(<span class="string">'x''='</span>);disp(x');
+y=DCT5*x;                      <span class="comment">% true result</span>
+disp(<span class="string">'y''='</span>);disp(y');
+y1=Da5*blkdiag(1,inv(Db6)*DST6)*B*x;            <span class="comment">% compute DCTV using DSTVI transform</span>
+disp(<span class="string">'y1''='</span>);disp(y1');
+</pre><pre class="codeoutput">x'=
+  Columns 1 through 7
+   -0.8095   -2.9443    1.4384    0.3252   -0.7549    1.3703   -1.7115
+  Columns 8 through 9
+   -0.1022   -0.2414
+y'=
+  Columns 1 through 7
+   -3.4300   -1.4360   -3.2739   -3.4892   -1.3389   -2.7776    0.3708
+  Columns 8 through 9
+    5.7705    1.0085
+y1'=
+  Columns 1 through 7
+   -3.4300   -1.4360   -3.2739   -3.4892   -1.3389   -2.7776    0.3708
+  Columns 8 through 9
+    5.7705    1.0085
+</pre><h2>Check computation of DSTVI transform<a name="10"></a></h2><pre class="codeinput">x=randn(N2,1);
+disp(<span class="string">'x''='</span>);disp(x');
+y=DST6*x;                      <span class="comment">% true result</span>
+disp(<span class="string">'y''='</span>);disp(y');
+y1=blkdiag(1,Db6)*inv(Da5)*DCT5*inv(B)*[0;x];            <span class="comment">% compute DSTVI using DCTV transform</span>
+disp(<span class="string">'y1''='</span>);disp(y1');
+<span class="comment">% Reference</span>
+</pre><pre class="codeoutput">x'=
+  Columns 1 through 7
+    0.3192    0.3129   -0.8649   -0.0301   -0.1649    0.6277    1.0933
+  Column 8
+    1.1093
+y'=
+  Columns 1 through 7
+    1.0392   -2.7589    2.0960    0.1857    1.1443    0.8074    0.2884
+  Column 8
+   -0.9837
+y1'=
+  Columns 1 through 7
+    0.0000    1.0392   -2.7589    2.0960    0.1857    1.1443    0.8074
+  Columns 8 through 9
+    0.2884   -0.9837
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.14<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Relations between DCTV and DSTVI
+
+%% Definitions
+% Transform matrix is defined for operating on column-vectors
+% y=T*x,
+% where y, x are column-vectors,
+%       T    is transform matrix
+
+%% DCTV matrix definition
+%
+% $${\bf DCTV}={\left\{{\cos\left({{{\pi}\over{n-{{1}\over{2}}}}kl}\right)}\right\}}_{k,l}$$
+%
+N1=9; N=N1;
+k=0:N1-1;  l=0:N1-1;
+DCT5=cos(pi/(N-1/2)*k'*l)       % display DCTV matrix
+
+%% DCTV in terms of Tschebyshev polynomials
+% The DCTV matrix can be expressed in terms of Tschebyshev polynomials [1]
+%
+% $${\mathbf {DCTV}} = \left[ {T_l \left( {\alpha _k } \right)} \right]_{k,l} $$
+%
+% where
+%
+% $${\rm \alpha}_{k}=\cos\left({{{\left({k+1}\right){\rm \pi}}\over{N-{{1}\over{2}}}}}\right),k=-1\ldots N-2$$
+%
+% are roots of polynomial
+%
+% $$U_{DCTV}=\left({x-1}\right)W_{n-1}$$
+%
+alpha=sort([roots(TschebyshevW(N-1)); 1],'descend');
+DCT5t=zeros(N1);
+for l=0:N1-1,
+    DCT5t(:,l+1)=polyval(TschebyshevT(l),alpha)';
+end
+Da5=diag(cos(0*pi/(N-1/2)*k));
+DCT5t=Da5*DCT5t                    % display DCTV matrix
+
+% compare DCT5 and DCT5t matrices (show that both definitions above are equivalent)
+max(max(abs(DCT5-DCT5t)))
+
+%% DSTVI matrix definition
+%
+% $$
+% {\mathbf{DSTVI}}\mathrm{{=}}\left\{{\cos\left({\frac{\mathit{\pi}}{{n}\mathrm{{+}}\frac{1}{2}}\left({{k}\mathrm{{+}}{1}}\right)\left({{l}\mathrm{{+}}\frac{1}{2}}\right)}\right)}\right\}
+% $$
+%
+N2=8; N=N2;
+k=0:N2-1;  l=0:N2-1;
+DST6=sin(pi/(N+1/2)*(k+1)'*(l+1/2))       % display DCTV matrix
+
+%% DSTVI in terms of Tschebyshev polynomials
+% The DSTVI matrix can be expressed in terms of Tschebyshev polynomials [1]
+%
+% $$
+% {\mathbf{DSTVI}}\mathrm{{=}}{\mathrm{\left[{{W}_{l}\left({{\mathit{\beta}}_{k}}\right)}\right]}}_{k\mathrm{,}l}
+% $$
+%
+% where
+%
+% $${\rm \beta}_{k}=\cos\left({{{\left({k+1}\right){\rm \pi}}\over{N+{{1}\over{2}}}}}\right),k=0\ldots N-1 $$
+%
+% are roots of polynomial
+%
+% $${U}_{DSTVI}\mathrm{{=}}{W}_{n}$$
+%
+% $${\mathbf{D}}_{DSTVI}\mathrm{{=}}{diag}{\mathrm{\left\{{\sin\left({\left({{k}{+}{1}}\right)\frac{\mathrm{\pi}}{{2}\left({{N}{+}\frac{1}{2}}\right)}}\right)}\right\}}}_{k}$$
+%
+beta=sort([roots(TschebyshevW(N))],'descend');
+DST6t=zeros(N);
+for l=0:N2-1,
+    DST6t(:,l+1)=polyval(TschebyshevW(l),beta)';
+end
+Db6=diag(sin(1/2*pi/(N+1/2)*(k+1)));
+DST6t=Db6*DST6t                    % display DCTV matrix
+
+% compare DST6 and DST6t matrices (show that both definitions above are equivalent)
+max(max(abs(DST6-DST6t)))
+
+%% Finding relations
+% Because there exist relation
+%
+% $$ T_l  = \frac{{W_l  - W_{l - 1} }}{2} $$
+%
+% and
+%
+% $$
+% \begin{array}{l}
+% {{\mathrm{\alpha}}_{k}\mathrm{{=}}{\mathrm{\beta}}_{k}{\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}}\\
+% {{\mathrm{\alpha}}_{N}\mathrm{{=}}{1}}
+% \end{array}
+% $$
+%
+% we can express DCTV through DSTVI
+%
+% $$ \begin{array}{l}
+% {{\mathbf{DCTV}}\mathrm{{=}}{\mathrm{\left[{{T}_{l}\left({{\mathrm{\alpha}}_{k}}\right)}\right]}}_{k\mathrm{,}l}\mathrm{{=}}{\mathrm{\left[{\begin{array}{cc}{1}&{}\\{}&{{W}_{l}\left({{\mathrm{\beta}}_{k}}\right)}\end{array}}\right]}}_{k\mathrm{,}l}\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}\left[{\begin{array}{cc}{1}&{}\\{}&{{\left({{\mathbf{D}}_{DSTVI}}\right)}^{\mathrm{{-}}{1}}\mathit{\cdot}{\mathbf{D}}_{DSTVI}\mathit{\cdot}{\left[{{W}_{l}\left({{\mathit{\beta}}_{k}}\right)}\right]}_{k\mathrm{,}l}}\end{array}}\right]\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}}\\
+% {\mathrm{{=}}\left[{\begin{array}{cc}{1}&{}\\{}&{{\left({{\mathbf{D}}_{DSTVI}}\right)}^{\mathrm{{-}}{1}}\mathrm{\cdot}{\mathbf{DSTVI}}}\end{array}}\right]\mathrm{\cdot}{\mathbf{B}}}
+% \end{array} $$
+%
+% where
+%
+% $${\mathbf{B}}\mathrm{{=}}\mathrm{\frac{1}{2}}\mathrm{\left[{\begin{array}{cccccc}{2}&{2}&{2}&{\cdots}&{2}&{2}\\{2}&{{-}{1}}&{}&{}&{}&{}\\{}&{1}&{{-}{1}}&{}&{}&{}\\{}&{}&{1}&{\ddots}&{}&{}\\{}&{}&{}&{\ddots}&{{-}{1}}&{}\\{}&{}&{}&{}&{1}&{{-}{1}}\end{array}}\right]}$$
+%
+B=toeplitz([0.5 zeros(1,N-1)]',[0.5        -0.5 zeros(1,N-length([0.5        -0.5]))]);
+B(1,1)=1;
+B=[B [0; B(1:end-1,end)]];
+B=[ones(1,size(B,2)); B];
+
+%% Check expression of DCTV through DSTVI
+%
+% $${\mathbf{DCTV}}\mathrm{{=}}\mathrm{\left[{\begin{array}{cc}{1}&{}\\{}&{{\left({{\mathbf{D}}_{DSTVI}}\right)}^{{-}{1}}\cdot{\mathbf{DSTVI}}}\end{array}}\right]}\mathrm{\cdot}{\mathbf{B}}$$
+%
+DCT5a=Da5*blkdiag(1,inv(Db6)*DST6)*B
+% compare DCT5 and DCT5a matrices (show correctness of representation of DCTV through DSTVI)
+max(max(abs(DCT5-DCT5a)))
+
+%% Check expression of DSTVI through DCTV
+%
+% $$\left[{\begin{array}{cc}{1}&{}\\{}&{\mathbf{DSTVI}}\end{array}}\right]\mathrm{{=}}\mathrm{\left[{\begin{array}{cc}{1}&{}\\{}&{{\mathbf{D}}_{DSTVI}}\end{array}}\right]}\mathrm{\cdot}{\mathbf{DCTV}}\mathrm{\cdot}{\mathbf{B}}^{\mathrm{{-}}{1}}$$
+%
+DST6a=blkdiag(1,Db6)*inv(Da5)*DCT5*inv(B);
+DST6a=DST6a(2:end,2:end)
+% compare DST6 and DST6a matrices (show correctness of representation of DSTVI through DCTV)
+max(max(abs(DST6-DST6a)))
+
+%% Check computation of DCTV transform
+x=randn(N1,1);
+disp('x''=');disp(x');
+y=DCT5*x;                      % true result
+disp('y''=');disp(y');
+y1=Da5*blkdiag(1,inv(Db6)*DST6)*B*x;            % compute DCTV using DSTVI transform
+disp('y1''=');disp(y1');
+
+%% Check computation of DSTVI transform
+x=randn(N2,1);
+disp('x''=');disp(x');
+y=DST6*x;                      % true result
+disp('y''=');disp(y');
+y1=blkdiag(1,Db6)*inv(Da5)*DCT5*inv(B)*[0;x];            % compute DSTVI using DCTV transform
+disp('y1''=');disp(y1');
+% Reference
+
+##### SOURCE END #####
+--></body></html>

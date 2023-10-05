@@ -1,0 +1,264 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Calculation of DCT_II using DST_II</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-06-26">
+      <meta name="m-file" content="DCTII_DSTII"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Calculation of DCT_II using DST_II</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DCT_II matrix definition</a></li>
+               <li><a href="#3">DST_II matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DCT_II through DST_II</a></li>
+               <li><a href="#7">Check expression of DST_II through DCT_II</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DCT_II matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq303491.png"> </p><pre class="codeinput">N=8;
+DCT2=cos(pi/N*(0:N-1)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DCT2 =
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    0.9808    0.8315    0.5556    0.1951   -0.1951   -0.5556   -0.8315   -0.9808
+    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827    0.3827    0.9239
+    0.8315   -0.1951   -0.9808   -0.5556    0.5556    0.9808    0.1951   -0.8315
+    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071    0.7071
+    0.5556   -0.9808    0.1951    0.8315   -0.8315   -0.1951    0.9808   -0.5556
+    0.3827   -0.9239    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827
+    0.1951   -0.5556    0.8315   -0.9808    0.9808   -0.8315    0.5556   -0.1951
+</pre><h2>DST_II matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq362571.png"> </p><pre class="codeinput">DST2=sin(pi/N*((0:N-1)+1)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DST2 =
+    0.1951    0.5556    0.8315    0.9808    0.9808    0.8315    0.5556    0.1951
+    0.3827    0.9239    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827
+    0.5556    0.9808    0.1951   -0.8315   -0.8315    0.1951    0.9808    0.5556
+    0.7071    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071
+    0.8315    0.1951   -0.9808    0.5556    0.5556   -0.9808    0.1951    0.8315
+    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827    0.3827   -0.9239
+    0.9808   -0.8315    0.5556   -0.1951   -0.1951    0.5556   -0.8315    0.9808
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>We will use transposition relations</p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq36204.png"> </p>
+         <p>and</p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq36236.png"> </p>
+         <p>for substituting DST_III and DCT_III trnasform matrices in dual transform relation</p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq177602.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq129862.png"> </p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq101036.png"> </p>
+         <p>Applying relation between DCT_III and DCT_II matrix</p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq36204.png"> </p>
+         <p>After substitution we will get</p>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq1681841.png"> </p><pre class="codeinput">K=diag((-1).^(0:N-1));
+J=rot90(eye(N));
+</pre><h2>Check expression of DCT_II through DST_II<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq171168.png"> </p>
+         <p>Check DCTII matrix</p><pre class="codeinput">J*DST2*K
+</pre><pre class="codeoutput">ans =
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    0.9808    0.8315    0.5556    0.1951   -0.1951   -0.5556   -0.8315   -0.9808
+    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827    0.3827    0.9239
+    0.8315   -0.1951   -0.9808   -0.5556    0.5556    0.9808    0.1951   -0.8315
+    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071    0.7071
+    0.5556   -0.9808    0.1951    0.8315   -0.8315   -0.1951    0.9808   -0.5556
+    0.3827   -0.9239    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827
+    0.1951   -0.5556    0.8315   -0.9808    0.9808   -0.8315    0.5556   -0.1951
+</pre><p>Check computation of DCTII transform</p><pre class="codeinput">x=randn(1,N)
+y=x*DCT2                <span class="comment">% true result</span>
+y1=x*J*DST2*K           <span class="comment">% compute DCTII using DSTII transform</span>
+</pre><pre class="codeoutput">x =
+    1.0668    0.0593   -0.0956   -0.8323    0.2944   -1.3362    0.7143    1.6236
+y =
+    0.4004    0.7822    3.4937   -1.1394    3.3193   -0.3834   -0.4581    2.5195
+y1 =
+    0.4004    0.7822    3.4937   -1.1394    3.3193   -0.3834   -0.4581    2.5195
+</pre><h2>Check expression of DST_II through DCT_II<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTII_DSTII_eq177520.png"> </p><pre class="codeinput">J*DCT2*K
+</pre><pre class="codeoutput">ans =
+    0.1951    0.5556    0.8315    0.9808    0.9808    0.8315    0.5556    0.1951
+    0.3827    0.9239    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827
+    0.5556    0.9808    0.1951   -0.8315   -0.8315    0.1951    0.9808    0.5556
+    0.7071    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071
+    0.8315    0.1951   -0.9808    0.5556    0.5556   -0.9808    0.1951    0.8315
+    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827    0.3827   -0.9239
+    0.9808   -0.8315    0.5556   -0.1951   -0.1951    0.5556   -0.8315    0.9808
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+</pre><p>Check computation of DSTII transform</p><pre class="codeinput">y=x*DST2                <span class="comment">% true result</span>
+y1=x*J*DCT2*K           <span class="comment">% compute DSTII using DCTII transform</span>
+</pre><pre class="codeoutput">y =
+    0.9236   -1.6837    3.7547   -1.0968    3.3968   -1.8018    1.6084    1.2772
+y1 =
+    0.9236   -1.6837    3.7547   -1.0968    3.3968   -1.8018    1.6084    1.2772
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Calculation of DCT_II using DST_II
+
+%% Definitions
+% Result of transform is
+% y=x*T, 
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DCT_II matrix definition
+%
+% $$\mathbf{DCTII} = \left\{cos\left( {\frac{\pi }{N}k(l +
+% \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+N=8;
+DCT2=cos(pi/N*(0:N-1)'*((0:N-1)+1/2))
+
+%% DST_II matrix definition
+%
+% $$\mathbf{DSTII} = \left\{ sin \left( {\frac{\pi }{N}(k+1)(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+DST2=sin(pi/N*((0:N-1)+1)'*((0:N-1)+1/2))
+
+%% Finding relations
+%
+% We will use transposition relations
+%
+% $${\mathbf {DCTIII}} = {\mathbf {DCTII}}^T $$
+%
+% and
+%
+% $${\mathbf {DSTIII}} = {\mathbf {DSTII}}^T $$
+%
+% for substituting DST_III and DCT_III trnasform matrices in dual transform relation
+%
+% $${\mathbf K} \cdot {\mathbf{ DSTIII}} = {\mathbf {DCTIII}} \cdot {\mathbf J}$$
+%
+% where
+%
+% $${\mathbf K} = diag\left\{ {( - 1)^k } \right\},k = 0, \ldots ,N - 1$$
+%
+% $${\mathbf J} = antidiag\left\{ 1 \right\},k = 0, \ldots ,N - 1$$
+%
+% Applying relation between DCT_III and DCT_II matrix
+%
+% $${\mathbf{ DCTIII}} = {\mathbf{ DCTII}}^T $$
+%
+% After substitution we will get
+%
+% $${\mathbf K} \cdot {\mathbf {DSTII}}^T  = {\mathbf {DCTII}}^T  \cdot
+% {\mathbf J} \Rightarrow {\mathbf {DSTII}} \cdot {\mathbf K} = {\mathbf J} \cdot
+% {\mathbf {DCTII}} $$ 
+%
+K=diag((-1).^(0:N-1));
+J=rot90(eye(N));
+
+%% Check expression of DCT_II through DST_II
+%
+% $${\mathbf{ DCTII}} = {\mathbf J} \cdot {\mathbf {DSTII}} \cdot {\mathbf K} $$
+%
+% Check DCTII matrix
+J*DST2*K
+
+%%
+% Check computation of DCTII transform
+x=randn(1,N)
+y=x*DCT2                % true result
+y1=x*J*DST2*K           % compute DCTII using DSTII transform
+
+%% Check expression of DST_II through DCT_II
+%
+% $${\mathbf{ DSTII }} = {\mathbf J} \cdot {\mathbf {DCTII}} \cdot {\mathbf K} $$
+%
+J*DCT2*K
+%%
+% Check computation of DSTII transform
+y=x*DST2                % true result
+y1=x*J*DCT2*K           % compute DSTII using DCTII transform
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

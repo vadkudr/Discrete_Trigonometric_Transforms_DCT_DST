@@ -1,0 +1,253 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Relations between DST_IV and DST_II</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-04-22">
+      <meta name="m-file" content="DSTIV_DSTII"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Relations between DST_IV and DST_II</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DST_IV matrix definition</a></li>
+               <li><a href="#3">DST_II matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DST_IV through DST_II</a></li>
+               <li><a href="#7">Check expression of DST_II through DST_IV</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DST_IV matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq516948.png"> </p><pre class="codeinput">N=8;
+DST4=sin(pi/N*((0:N-1)+1/2)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DST4 =
+    0.0980    0.2903    0.4714    0.6344    0.7730    0.8819    0.9569    0.9952
+    0.2903    0.7730    0.9952    0.8819    0.4714   -0.0980   -0.6344   -0.9569
+    0.4714    0.9952    0.6344   -0.2903   -0.9569   -0.7730    0.0980    0.8819
+    0.6344    0.8819   -0.2903   -0.9952   -0.0980    0.9569    0.4714   -0.7730
+    0.7730    0.4714   -0.9569   -0.0980    0.9952   -0.2903   -0.8819    0.6344
+    0.8819   -0.0980   -0.7730    0.9569   -0.2903   -0.6344    0.9952   -0.4714
+    0.9569   -0.6344    0.0980    0.4714   -0.8819    0.9952   -0.7730    0.2903
+    0.9952   -0.9569    0.8819   -0.7730    0.6344   -0.4714    0.2903   -0.0980
+</pre><h2>DST_II matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq362571.png"> </p><pre class="codeinput">DST2=sin(pi/N*((0:N-1)+1)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DST2 =
+    0.1951    0.5556    0.8315    0.9808    0.9808    0.8315    0.5556    0.1951
+    0.3827    0.9239    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827
+    0.5556    0.9808    0.1951   -0.8315   -0.8315    0.1951    0.9808    0.5556
+    0.7071    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071
+    0.8315    0.1951   -0.9808    0.5556    0.5556   -0.9808    0.1951    0.8315
+    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827    0.3827   -0.9239
+    0.9808   -0.8315    0.5556   -0.1951   -0.1951    0.5556   -0.8315    0.9808
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>We use already derived relation between DCTIII and DCTIV matrices</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq234595.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq3762370.png"> </p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq646574.png"> </p>
+         <p>By using transposition relation between DSTII and DSTIII matrices [1]</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq36236.png"> </p>
+         <p>we can express matrix of DSTIV transform through DSTII transform matrix</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq242532.png"> </p><pre class="codeinput">B=diag(ones(1,N))+diag(ones(1,N-1),1);
+D=2*diag(cos(pi/2/N*((0:N-1)+1/2)));
+</pre><h2>Check expression of DST_IV through DST_II<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq242532.png"> </p>
+         <p>Check DSTIV matrix</p><pre class="codeinput">B'*DST2*inv(D)
+</pre><pre class="codeoutput">ans =
+    0.0980    0.2903    0.4714    0.6344    0.7730    0.8819    0.9569    0.9952
+    0.2903    0.7730    0.9952    0.8819    0.4714   -0.0980   -0.6344   -0.9569
+    0.4714    0.9952    0.6344   -0.2903   -0.9569   -0.7730    0.0980    0.8819
+    0.6344    0.8819   -0.2903   -0.9952   -0.0980    0.9569    0.4714   -0.7730
+    0.7730    0.4714   -0.9569   -0.0980    0.9952   -0.2903   -0.8819    0.6344
+    0.8819   -0.0980   -0.7730    0.9569   -0.2903   -0.6344    0.9952   -0.4714
+    0.9569   -0.6344    0.0980    0.4714   -0.8819    0.9952   -0.7730    0.2903
+    0.9952   -0.9569    0.8819   -0.7730    0.6344   -0.4714    0.2903   -0.0980
+</pre><p>Check computation of DSTIII transform</p><pre class="codeinput">x=randn(1,N);
+y=x*DST4             <span class="comment">% true result</span>
+y1=x*B'*DST2*inv(D)  <span class="comment">% compute DSTIV using DSTII transform</span>
+</pre><pre class="codeoutput">y =
+    2.9419   -1.0097    0.9790    3.4707    0.3799   -1.0055    2.0668    2.2381
+y1 =
+    2.9419   -1.0097    0.9790    3.4707    0.3799   -1.0055    2.0668    2.2381
+</pre><h2>Check expression of DST_II through DST_IV<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTII_eq226980.png"> </p>
+         <p>Check DSTIV matrix</p><pre class="codeinput">inv(B')*DST4*D
+</pre><pre class="codeoutput">ans =
+    0.1951    0.5556    0.8315    0.9808    0.9808    0.8315    0.5556    0.1951
+    0.3827    0.9239    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827
+    0.5556    0.9808    0.1951   -0.8315   -0.8315    0.1951    0.9808    0.5556
+    0.7071    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071
+    0.8315    0.1951   -0.9808    0.5556    0.5556   -0.9808    0.1951    0.8315
+    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827    0.3827   -0.9239
+    0.9808   -0.8315    0.5556   -0.1951   -0.1951    0.5556   -0.8315    0.9808
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+</pre><p>Check computation of DSTIV transform</p><pre class="codeinput">y=x*DST2             <span class="comment">% true result</span>
+y1=x*inv(B')*DST4*D  <span class="comment">% compute DSTIV using DSTII transform</span>
+</pre><pre class="codeoutput">y =
+    3.1918   -1.0852    2.7970    2.6310   -0.6952    0.4823    2.9646   -0.1100
+y1 =
+    3.1918   -1.0852    2.7970    2.6310   -0.6952    0.4823    2.9646   -0.1100
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Relations between DST_IV and DST_II
+
+%% Definitions
+% Result of transform is
+% y=x*T, 
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DST_IV matrix definition
+%
+% $$ \mathbf{DSTIV} = \left\{ sin \left( {\frac{\pi }{N}(k + \frac{1}{2})(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+N=8;
+DST4=sin(pi/N*((0:N-1)+1/2)'*((0:N-1)+1/2))
+
+%% DST_II matrix definition
+%
+% $$\mathbf{DSTII} = \left\{ sin \left( {\frac{\pi }{N}(k+1)(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+DST2=sin(pi/N*((0:N-1)+1)'*((0:N-1)+1/2))
+
+%% Finding relations
+% 
+% We use already derived relation between DCTIII and DCTIV matrices
+%
+% $$ {\mathbf {DSTIV}} = {\mathbf D}^{ - 1} \cdot {\mathbf {DSTIII}} \cdot {\mathbf B} $$
+%
+% where
+%
+% $${\mathbf B} = \left[ {\begin{array}{*{20}c}
+%    1 & 1 & {} & {} & {}  \\
+%    {} & 1 & 1 & {} & {}  \\
+%    {} & {} & 1 &  \ddots  & {}  \\
+%    {} & {} & {} &  \ddots  & 1  \\
+%    {} & {} & {} & {} & 1  \\
+% \end{array}} \right]$$
+%
+% $${\mathbf D} = 2 \cdot diag\left\{ {\cos \left( {\left( {k + \frac{1}{2}}
+% \right)\frac{\pi }{{2N}}} \right)} \right\}_k $$
+%
+% By using transposition relation between DSTII and DSTIII matrices [1]
+%
+% $${\mathbf {DSTII}} = {\mathbf {DSTIII}}^T $$
+%
+% we can express matrix of DSTIV transform through DSTII transform matrix
+%
+% $$ {\mathbf {DSTIV}} = {\mathbf B}^T \cdot {\mathbf {DSTII}} \cdot {\mathbf
+% D}^{ - 1} $$
+% 
+B=diag(ones(1,N))+diag(ones(1,N-1),1);
+D=2*diag(cos(pi/2/N*((0:N-1)+1/2)));
+
+%% Check expression of DST_IV through DST_II
+%
+% $$ {\mathbf {DSTIV}} = {\mathbf B}^T \cdot {\mathbf {DSTII}} \cdot {\mathbf
+% D}^{ - 1} $$
+%
+% Check DSTIV matrix
+B'*DST2*inv(D)
+%%
+% Check computation of DSTIII transform
+x=randn(1,N);
+y=x*DST4             % true result
+y1=x*B'*DST2*inv(D)  % compute DSTIV using DSTII transform
+
+%% Check expression of DST_II through DST_IV
+%
+% $${\mathbf {DSTII}} = {\mathbf B^T}^{ - 1} \cdot {\mathbf {DSTIV}} \cdot {\mathbf D}$$
+%
+% Check DSTIV matrix
+inv(B')*DST4*D
+%%
+% Check computation of DSTIV transform
+y=x*DST2             % true result
+y1=x*inv(B')*DST4*D  % compute DSTIV using DSTII transform
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316. 
+##### SOURCE END #####
+-->
+   </body>
+</html>

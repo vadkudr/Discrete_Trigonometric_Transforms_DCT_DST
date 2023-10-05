@@ -1,0 +1,396 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Relations between DCTVII and DSTVIII</title><meta name="generator" content="MATLAB 7.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-07-08"><meta name="DC.source" content="DCTVII_DSTVIII.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+
+  </style></head><body><div class="content"><h1>Relations between DCTVII and DSTVIII</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Definitions</a></li><li><a href="#2">DCTVII matrix definition</a></li><li><a href="#3">DCTVII in terms of Tschebyshev polynomials</a></li><li><a href="#4">DSTVIII matrix definition</a></li><li><a href="#5">DSTVIII in terms of Tschebyshev polynomials</a></li><li><a href="#6">Finding relations</a></li><li><a href="#7">Check expression of DCTVII through DSTVIII</a></li><li><a href="#8">Check expression of DSTVIII through DCTVII</a></li><li><a href="#9">Check computation of DCTVII transform</a></li><li><a href="#10">Check computation of DSTVIII transform</a></li></ul></div><h2>Definitions<a name="1"></a></h2><p>Transform matrix is defined for operating on column-vectors y=T*x, where y, x are column-vectors,       T    is transform matrix</p><h2>DCTVII matrix definition<a name="2"></a></h2><p><img src="DCTVII_DSTVIII_eq61254.png" alt="$${\mathbf{DCTVII}}\mathrm{{=}}{\mathrm{\left\{{\cos\left({\frac{\mathrm{\pi}}{{n}{-}\frac{1}{2}}\left({{k}{+}\frac{1}{2}}\right){l}}\right)}\right\}}}_{k\mathrm{,}l}$$"></p><pre class="codeinput">N1=8; N=N1;
+k=0:N1-1;  l=0:N1-1;
+DCT7=cos(pi/(N-1/2)*(k+1/2)'*l)       <span class="comment">% display DCTV matrix</span>
+</pre><pre class="codeoutput">DCT7 =
+  Columns 1 through 7
+    1.0000    0.9781    0.9135    0.8090    0.6691    0.5000    0.3090
+    1.0000    0.8090    0.3090   -0.3090   -0.8090   -1.0000   -0.8090
+    1.0000    0.5000   -0.5000   -1.0000   -0.5000    0.5000    1.0000
+    1.0000    0.1045   -0.9781   -0.3090    0.9135    0.5000   -0.8090
+    1.0000   -0.3090   -0.8090    0.8090    0.3090   -1.0000    0.3090
+    1.0000   -0.6691   -0.1045    0.8090   -0.9781    0.5000    0.3090
+    1.0000   -0.9135    0.6691   -0.3090   -0.1045    0.5000   -0.8090
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000
+  Column 8
+    0.1045
+   -0.3090
+    0.5000
+   -0.6691
+    0.8090
+   -0.9135
+    0.9781
+   -1.0000
+</pre><h2>DCTVII in terms of Tschebyshev polynomials<a name="3"></a></h2><p>The DCTVII matrix can be expressed in terms of Tschebyshev polynomials [1]</p><p><img src="DCTVII_DSTVIII_eq75230.png" alt="$${\mathbf {DCTVII}} = \left[ {T_l \left( {\alpha _k } \right)} \right]_{k,l} $$"></p><p>where</p><p><img src="DCTVII_DSTVIII_eq00551.png" alt="$${\mathrm{\alpha}}_{k}\mathrm{{=}}\cos\left({\frac{\left({{k}\mathrm{{+}}\frac{1}{2}}\right)\mathit{\pi}}{{N}\mathrm{{-}}\frac{1}{2}}}\right){\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}$$"></p><p>are roots of polynomial</p><p><img src="DCTVII_DSTVIII_eq53363.png" alt="$${U}_{DCTVII}\mathrm{{=}}\mathrm{\left({{x}{+}{1}}\right)}{V}_{{n}\mathrm{{-}}{1}}$$"></p><pre class="codeinput">alpha=sort([roots(TschebyshevV(N-1)); -1],<span class="string">'descend'</span>);
+DCT7t=zeros(N1);
+<span class="keyword">for</span> l=0:N1-1,
+    DCT7t(:,l+1)=polyval(TschebyshevT(l),alpha)';
+<span class="keyword">end</span>
+Da7=diag(cos(0*pi/(N-1/2)*(k+1/2)));
+DCT7t=Da7*DCT7t                    <span class="comment">% display DCTV matrix</span>
+
+<span class="comment">% compare DCT7 and DCT7t matrices (show that both definitions above are equivalent)</span>
+max(max(abs(DCT7-DCT7t)))
+</pre><pre class="codeoutput">DCT7t =
+  Columns 1 through 7
+    1.0000    0.9781    0.9135    0.8090    0.6691    0.5000    0.3090
+    1.0000    0.8090    0.3090   -0.3090   -0.8090   -1.0000   -0.8090
+    1.0000    0.5000   -0.5000   -1.0000   -0.5000    0.5000    1.0000
+    1.0000    0.1045   -0.9781   -0.3090    0.9135    0.5000   -0.8090
+    1.0000   -0.3090   -0.8090    0.8090    0.3090   -1.0000    0.3090
+    1.0000   -0.6691   -0.1045    0.8090   -0.9781    0.5000    0.3090
+    1.0000   -0.9135    0.6691   -0.3090   -0.1045    0.5000   -0.8090
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000
+  Column 8
+    0.1045
+   -0.3090
+    0.5000
+   -0.6691
+    0.8090
+   -0.9135
+    0.9781
+   -1.0000
+ans =
+   7.0999e-14
+</pre><h2>DSTVIII matrix definition<a name="4"></a></h2><p><img src="DCTVII_DSTVIII_eq53937.png" alt="$${\mathbf{DSTVII}}{\mathbf{I}}\mathrm{{=}}{\left\{{\sin\left({\frac{\mathit{\pi}}{{n}\mathrm{{-}}\frac{1}{2}}\left({{k}\mathrm{{+}}\frac{1}{2}}\right)\left({{l}\mathrm{{+}}\frac{1}{2}}\right)}\right)}\right\}}_{k\mathrm{,}l}$$"></p><pre class="codeinput">N2=8; N=N2;
+k=0:N2-1;  l=0:N2-1;
+DST8=sin(pi/(N-1/2)*(k+1/2)'*(l+1/2))       <span class="comment">% display DCTV matrix</span>
+</pre><pre class="codeoutput">DST8 =
+  Columns 1 through 7
+    0.1045    0.3090    0.5000    0.6691    0.8090    0.9135    0.9781
+    0.3090    0.8090    1.0000    0.8090    0.3090   -0.3090   -0.8090
+    0.5000    1.0000    0.5000   -0.5000   -1.0000   -0.5000    0.5000
+    0.6691    0.8090   -0.5000   -0.9135    0.3090    0.9781   -0.1045
+    0.8090    0.3090   -1.0000    0.3090    0.8090   -0.8090   -0.3090
+    0.9135   -0.3090   -0.5000    0.9781   -0.8090    0.1045    0.6691
+    0.9781   -0.8090    0.5000   -0.1045   -0.3090    0.6691   -0.9135
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000
+  Column 8
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+</pre><h2>DSTVIII in terms of Tschebyshev polynomials<a name="5"></a></h2><p>The DSTVIII matrix can be expressed in terms of Tschebyshev polynomials [1]</p><p><img src="DCTVII_DSTVIII_eq45796.png" alt="$${\mathbf{DSTVIII}}\mathrm{{=}}{\mathbf{D}}_{DSTVIII}\mathrm{\cdot}{\mathrm{\left[{{W}_{l}\left({{\mathrm{\beta}}_{k}}\right)}\right]}}_{k\mathrm{,}l}$$"></p><p>where</p><p><img src="DCTVII_DSTVIII_eq06407.png" alt="$${\mathrm{\beta}}_{k}\mathrm{{=}}\cos\left({\frac{\left({{k}\mathrm{{+}}\frac{1}{2}}\right)\mathit{\pi}}{{N}\mathrm{{-}}\frac{1}{2}}}\right){\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}$$"></p><p>are roots of polynomial</p><p><img src="DCTVII_DSTVIII_eq95129.png" alt="$${U}_{DSTVIII}\mathrm{{=}}\mathrm{\left({{x}{+}{1}}\right)}{V}_{{n}\mathrm{{-}}{1}}$$"></p><p><img src="DCTVII_DSTVIII_eq70852.png" alt="$${\mathbf{D}}_{DSTVIII}\mathrm{{=}}{diag}{\mathrm{\left\{{\sin\left({\left({{k}{+}\frac{1}{2}}\right)\frac{\mathrm{\pi}}{\left({{N}{-}\frac{1}{2}}\right)}}\right)}\right\}}}_{k}$$"></p><pre class="codeinput">beta=sort([roots(TschebyshevV(N-1)); -1],<span class="string">'descend'</span>);
+DST8t=zeros(N);
+<span class="keyword">for</span> l=0:N2-1,
+    DST8t(:,l+1)=polyval(TschebyshevW(l),beta)';
+<span class="keyword">end</span>
+Db8=diag(sin(1/2*pi/(N-1/2)*(k+1/2)));
+DST8t=Db8*DST8t                    <span class="comment">% display DCTV matrix</span>
+
+<span class="comment">% compare DST8 and DST8t matrices (show that both definitions above are equivalent)</span>
+max(max(abs(DST8-DST8t)))
+</pre><pre class="codeoutput">DST8t =
+  Columns 1 through 7
+    0.1045    0.3090    0.5000    0.6691    0.8090    0.9135    0.9781
+    0.3090    0.8090    1.0000    0.8090    0.3090   -0.3090   -0.8090
+    0.5000    1.0000    0.5000   -0.5000   -1.0000   -0.5000    0.5000
+    0.6691    0.8090   -0.5000   -0.9135    0.3090    0.9781   -0.1045
+    0.8090    0.3090   -1.0000    0.3090    0.8090   -0.8090   -0.3090
+    0.9135   -0.3090   -0.5000    0.9781   -0.8090    0.1045    0.6691
+    0.9781   -0.8090    0.5000   -0.1045   -0.3090    0.6691   -0.9135
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000
+  Column 8
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+ans =
+   5.1736e-14
+</pre><h2>Finding relations<a name="6"></a></h2><p>Because there exist relation</p><p><img src="DCTVII_DSTVIII_eq61955.png" alt="$$ T_l  = \frac{{W_l  - W_{l - 1} }}{2} $$"></p><p>and</p><p><img src="DCTVII_DSTVIII_eq93699.png" alt="$$\begin{array}{l}&#xA;{{\mathrm{\alpha}}_{k}\mathrm{{=}}{\mathrm{\beta}}_{k}{\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}}\\&#xA;{{\mathrm{\alpha}}_{N}\mathrm{{=}}\mathrm{{-}}{1}}&#xA;\end{array}$$"></p><p>we can express DCTVII through DSTVIII</p><p><img src="DCTVII_DSTVIII_eq27456.png" alt="$$\begin{array}{l}&#xA;{{\mathbf{DCTVII}}\mathrm{{=}}{\mathrm{\left[{{T}_{l}\left({{\mathrm{\alpha}}_{k}}\right)}\right]}}_{k\mathrm{,}l}\mathrm{{=}}{\mathrm{\left[{{W}_{l}\left({{\mathrm{\beta}}_{k}}\right)}\right]}}_{k\mathrm{,}l}\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}\left[{{\left({{\mathbf{D}}_{DSTVIII}}\right)}^{\mathrm{{-}}{1}}\mathit{\cdot}{\mathbf{D}}_{DSTVIII}\mathit{\cdot}{\left[{{W}_{l}\left({{\mathit{\beta}}_{k}}\right)}\right]}_{k\mathrm{,}l}}\right]\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}}\\&#xA;{\mathrm{{=}}{\left({{\mathbf{D}}_{DSTVIII}}\right)}^{\mathrm{{-}}{1}}\mathrm{\cdot}{\mathbf{DSTVII}}{\mathbf{I}}\mathrm{\cdot}{\mathbf{B}}}&#xA;\end{array} $$"></p><p>where</p><p><img src="DCTVII_DSTVIII_eq83660.png" alt="$${\mathbf{B}}\mathrm{{=}}\mathrm{\frac{1}{2}}\mathrm{\left[{\begin{array}{cccccc}{2}&{{-}{1}}&{}&{}&{}&{}\\{}&{1}&{{-}{1}}&{}&{}&{}\\{}&{}&{1}&{\ddots}&{}&{}\\{}&{}&{}&{\ddots}&{{-}{1}}&{}\\{}&{}&{}&{}&{1}&{{-}{1}}\\{}&{}&{}&{\cdots}&{}&{1}\end{array}}\right]}$$"></p><pre class="codeinput">B=toeplitz([0.5 zeros(1,N-1)]',[0.5        -0.5 zeros(1,N-length([0.5        -0.5]))]);
+B(1,1)=1;
+</pre><h2>Check expression of DCTVII through DSTVIII<a name="7"></a></h2><p><img src="DCTVII_DSTVIII_eq24299.png" alt="$${\mathbf{DCTVII}}\mathrm{{=}}{\mathrm{\left({{\mathbf{D}}_{DSTVIII}}\right)}}^{\mathrm{{-}}{1}}\mathrm{\cdot}{\mathbf{DSTVIII}}\mathrm{\cdot}{\mathbf{B}}$$"></p><pre class="codeinput">DCT7a=Da7*inv(Db8)*DST8*B
+<span class="comment">% compare DCT7 and DCT7a matrices (show correctness of representation of DCTVII through DSTVIII)</span>
+max(max(abs(DCT7-DCT7a)))
+</pre><pre class="codeoutput">DCT7a =
+  Columns 1 through 7
+    1.0000    0.9781    0.9135    0.8090    0.6691    0.5000    0.3090
+    1.0000    0.8090    0.3090   -0.3090   -0.8090   -1.0000   -0.8090
+    1.0000    0.5000   -0.5000   -1.0000   -0.5000    0.5000    1.0000
+    1.0000    0.1045   -0.9781   -0.3090    0.9135    0.5000   -0.8090
+    1.0000   -0.3090   -0.8090    0.8090    0.3090   -1.0000    0.3090
+    1.0000   -0.6691   -0.1045    0.8090   -0.9781    0.5000    0.3090
+    1.0000   -0.9135    0.6691   -0.3090   -0.1045    0.5000   -0.8090
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000
+  Column 8
+    0.1045
+   -0.3090
+    0.5000
+   -0.6691
+    0.8090
+   -0.9135
+    0.9781
+   -1.0000
+ans =
+   8.8818e-16
+</pre><h2>Check expression of DSTVIII through DCTVII<a name="8"></a></h2><p><img src="DCTVII_DSTVIII_eq74605.png" alt="$${\mathbf{DSTVIII}}\mathrm{{=}}{\mathbf{D}}_{DSTVIII}\mathrm{\cdot}{\mathbf{DCTVII}}\mathrm{\cdot}{\mathbf{B}}^{\mathrm{{-}}{1}}$$"></p><pre class="codeinput">DST8a=Db8*inv(Da7)*DCT7*inv(B);
+DST8a=DST8a(:,:)
+<span class="comment">% compare DST8 and DST8a matrices (show correctness of representation of DSTVIII through DCTVII)</span>
+max(max(abs(DST8-DST8a)))
+</pre><pre class="codeoutput">DST8a =
+  Columns 1 through 7
+    0.1045    0.3090    0.5000    0.6691    0.8090    0.9135    0.9781
+    0.3090    0.8090    1.0000    0.8090    0.3090   -0.3090   -0.8090
+    0.5000    1.0000    0.5000   -0.5000   -1.0000   -0.5000    0.5000
+    0.6691    0.8090   -0.5000   -0.9135    0.3090    0.9781   -0.1045
+    0.8090    0.3090   -1.0000    0.3090    0.8090   -0.8090   -0.3090
+    0.9135   -0.3090   -0.5000    0.9781   -0.8090    0.1045    0.6691
+    0.9781   -0.8090    0.5000   -0.1045   -0.3090    0.6691   -0.9135
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000
+  Column 8
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+ans =
+   1.9429e-15
+</pre><h2>Check computation of DCTVII transform<a name="9"></a></h2><pre class="codeinput">x=randn(N1,1);
+disp(<span class="string">'x''='</span>);disp(x');
+y=DCT7*x;                      <span class="comment">% true result</span>
+disp(<span class="string">'y''='</span>);disp(y');
+y1=Da7*inv(Db8)*DST8*B*x;            <span class="comment">% compute DCTVII using DSTVIII transform</span>
+disp(<span class="string">'y1''='</span>);disp(y1');
+</pre><pre class="codeoutput">x'=
+  Columns 1 through 7
+   -0.8880    0.1001   -0.5445    0.3035   -0.6003    0.4900    0.7394
+  Column 8
+    1.7119
+y'=
+  Columns 1 through 7
+   -0.7913   -2.2006    1.2712   -2.4858    0.7051   -1.1558   -0.0536
+  Column 8
+   -3.8990
+y1'=
+  Columns 1 through 7
+   -0.7913   -2.2006    1.2712   -2.4858    0.7051   -1.1558   -0.0536
+  Column 8
+   -3.8990
+</pre><h2>Check computation of DSTVIII transform<a name="10"></a></h2><pre class="codeinput">x=randn(N2,1);
+disp(<span class="string">'x''='</span>);disp(x');
+y=DST8*x;                      <span class="comment">% true result</span>
+disp(<span class="string">'y''='</span>);disp(y');
+y1=Db8*inv(Da7)*DCT7*inv(B)*x;            <span class="comment">% compute DSTVIII using DCTVII transform</span>
+disp(<span class="string">'y1''='</span>);disp(y1');
+<span class="comment">% Reference</span>
+</pre><pre class="codeoutput">x'=
+  Columns 1 through 7
+   -0.1941   -2.1384   -0.8396    1.3546   -1.0722    0.9610    0.1240
+  Column 8
+    1.4367
+y'=
+  Columns 1 through 7
+    1.3740   -3.6990   -1.2421   -3.5186    0.1939    1.8424    3.2764
+  Column 8
+   -3.5957
+y1'=
+  Columns 1 through 7
+    1.3740   -3.6990   -1.2421   -3.5186    0.1939    1.8424    3.2764
+  Column 8
+   -3.5957
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.14<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Relations between DCTVII and DSTVIII
+
+%% Definitions
+% Transform matrix is defined for operating on column-vectors
+% y=T*x,
+% where y, x are column-vectors,
+%       T    is transform matrix
+
+%% DCTVII matrix definition
+%
+% $${\mathbf{DCTVII}}\mathrm{{=}}{\mathrm{\left\{{\cos\left({\frac{\mathrm{\pi}}{{n}{-}\frac{1}{2}}\left({{k}{+}\frac{1}{2}}\right){l}}\right)}\right\}}}_{k\mathrm{,}l}$$
+%
+N1=8; N=N1;
+k=0:N1-1;  l=0:N1-1;
+DCT7=cos(pi/(N-1/2)*(k+1/2)'*l)       % display DCTV matrix
+
+%% DCTVII in terms of Tschebyshev polynomials
+% The DCTVII matrix can be expressed in terms of Tschebyshev polynomials [1]
+%
+% $${\mathbf {DCTVII}} = \left[ {T_l \left( {\alpha _k } \right)} \right]_{k,l} $$
+%
+% where
+%
+% $${\mathrm{\alpha}}_{k}\mathrm{{=}}\cos\left({\frac{\left({{k}\mathrm{{+}}\frac{1}{2}}\right)\mathit{\pi}}{{N}\mathrm{{-}}\frac{1}{2}}}\right){\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}$$
+%
+% are roots of polynomial
+%
+% $${U}_{DCTVII}\mathrm{{=}}\mathrm{\left({{x}{+}{1}}\right)}{V}_{{n}\mathrm{{-}}{1}}$$
+%
+alpha=sort([roots(TschebyshevV(N-1)); -1],'descend');
+DCT7t=zeros(N1);
+for l=0:N1-1,
+    DCT7t(:,l+1)=polyval(TschebyshevT(l),alpha)';
+end
+Da7=diag(cos(0*pi/(N-1/2)*(k+1/2)));
+DCT7t=Da7*DCT7t                    % display DCTV matrix
+
+% compare DCT7 and DCT7t matrices (show that both definitions above are equivalent)
+max(max(abs(DCT7-DCT7t)))
+
+%% DSTVIII matrix definition
+%
+% $${\mathbf{DSTVII}}{\mathbf{I}}\mathrm{{=}}{\left\{{\sin\left({\frac{\mathit{\pi}}{{n}\mathrm{{-}}\frac{1}{2}}\left({{k}\mathrm{{+}}\frac{1}{2}}\right)\left({{l}\mathrm{{+}}\frac{1}{2}}\right)}\right)}\right\}}_{k\mathrm{,}l}$$
+%
+N2=8; N=N2;
+k=0:N2-1;  l=0:N2-1;
+DST8=sin(pi/(N-1/2)*(k+1/2)'*(l+1/2))       % display DCTV matrix
+
+%% DSTVIII in terms of Tschebyshev polynomials
+% The DSTVIII matrix can be expressed in terms of Tschebyshev polynomials [1]
+%
+% $${\mathbf{DSTVIII}}\mathrm{{=}}{\mathbf{D}}_{DSTVIII}\mathrm{\cdot}{\mathrm{\left[{{W}_{l}\left({{\mathrm{\beta}}_{k}}\right)}\right]}}_{k\mathrm{,}l}$$
+%
+% where
+%
+% $${\mathrm{\beta}}_{k}\mathrm{{=}}\cos\left({\frac{\left({{k}\mathrm{{+}}\frac{1}{2}}\right)\mathit{\pi}}{{N}\mathrm{{-}}\frac{1}{2}}}\right){\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}$$
+%
+% are roots of polynomial
+%
+% $${U}_{DSTVIII}\mathrm{{=}}\mathrm{\left({{x}{+}{1}}\right)}{V}_{{n}\mathrm{{-}}{1}}$$
+%
+% $${\mathbf{D}}_{DSTVIII}\mathrm{{=}}{diag}{\mathrm{\left\{{\sin\left({\left({{k}{+}\frac{1}{2}}\right)\frac{\mathrm{\pi}}{\left({{N}{-}\frac{1}{2}}\right)}}\right)}\right\}}}_{k}$$
+%
+beta=sort([roots(TschebyshevV(N-1)); -1],'descend');
+DST8t=zeros(N);
+for l=0:N2-1,
+    DST8t(:,l+1)=polyval(TschebyshevW(l),beta)';
+end
+Db8=diag(sin(1/2*pi/(N-1/2)*(k+1/2)));
+DST8t=Db8*DST8t                    % display DCTV matrix
+
+% compare DST8 and DST8t matrices (show that both definitions above are equivalent)
+max(max(abs(DST8-DST8t)))
+
+%% Finding relations
+% Because there exist relation
+%
+% $$ T_l  = \frac{{W_l  - W_{l - 1} }}{2} $$
+%
+% and
+%
+% $$\begin{array}{l}
+% {{\mathrm{\alpha}}_{k}\mathrm{{=}}{\mathrm{\beta}}_{k}{\mathrm{,}}{k}\mathrm{{=}}{0}\mathrm{\ldots}{N}\mathrm{{-}}{1}}\\
+% {{\mathrm{\alpha}}_{N}\mathrm{{=}}\mathrm{{-}}{1}}
+% \end{array}$$
+%
+% we can express DCTVII through DSTVIII
+%
+% $$\begin{array}{l}
+% {{\mathbf{DCTVII}}\mathrm{{=}}{\mathrm{\left[{{T}_{l}\left({{\mathrm{\alpha}}_{k}}\right)}\right]}}_{k\mathrm{,}l}\mathrm{{=}}{\mathrm{\left[{{W}_{l}\left({{\mathrm{\beta}}_{k}}\right)}\right]}}_{k\mathrm{,}l}\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}\left[{{\left({{\mathbf{D}}_{DSTVIII}}\right)}^{\mathrm{{-}}{1}}\mathit{\cdot}{\mathbf{D}}_{DSTVIII}\mathit{\cdot}{\left[{{W}_{l}\left({{\mathit{\beta}}_{k}}\right)}\right]}_{k\mathrm{,}l}}\right]\mathit{\cdot}{\mathbf{B}}\mathrm{{=}}}\\
+% {\mathrm{{=}}{\left({{\mathbf{D}}_{DSTVIII}}\right)}^{\mathrm{{-}}{1}}\mathrm{\cdot}{\mathbf{DSTVII}}{\mathbf{I}}\mathrm{\cdot}{\mathbf{B}}}
+% \end{array} $$
+%
+% where
+%
+% $${\mathbf{B}}\mathrm{{=}}\mathrm{\frac{1}{2}}\mathrm{\left[{\begin{array}{cccccc}{2}&{{-}{1}}&{}&{}&{}&{}\\{}&{1}&{{-}{1}}&{}&{}&{}\\{}&{}&{1}&{\ddots}&{}&{}\\{}&{}&{}&{\ddots}&{{-}{1}}&{}\\{}&{}&{}&{}&{1}&{{-}{1}}\\{}&{}&{}&{\cdots}&{}&{1}\end{array}}\right]}$$
+%
+B=toeplitz([0.5 zeros(1,N-1)]',[0.5        -0.5 zeros(1,N-length([0.5        -0.5]))]);
+B(1,1)=1;
+
+%% Check expression of DCTVII through DSTVIII
+%
+% $${\mathbf{DCTVII}}\mathrm{{=}}{\mathrm{\left({{\mathbf{D}}_{DSTVIII}}\right)}}^{\mathrm{{-}}{1}}\mathrm{\cdot}{\mathbf{DSTVIII}}\mathrm{\cdot}{\mathbf{B}}$$
+%
+DCT7a=Da7*inv(Db8)*DST8*B
+% compare DCT7 and DCT7a matrices (show correctness of representation of DCTVII through DSTVIII)
+max(max(abs(DCT7-DCT7a)))
+
+%% Check expression of DSTVIII through DCTVII
+%
+% $${\mathbf{DSTVIII}}\mathrm{{=}}{\mathbf{D}}_{DSTVIII}\mathrm{\cdot}{\mathbf{DCTVII}}\mathrm{\cdot}{\mathbf{B}}^{\mathrm{{-}}{1}}$$
+%
+DST8a=Db8*inv(Da7)*DCT7*inv(B);
+DST8a=DST8a(:,:)
+% compare DST8 and DST8a matrices (show correctness of representation of DSTVIII through DCTVII)
+max(max(abs(DST8-DST8a)))
+
+%% Check computation of DCTVII transform
+x=randn(N1,1);
+disp('x''=');disp(x');
+y=DCT7*x;                      % true result
+disp('y''=');disp(y');
+y1=Da7*inv(Db8)*DST8*B*x;            % compute DCTVII using DSTVIII transform
+disp('y1''=');disp(y1');
+
+%% Check computation of DSTVIII transform
+x=randn(N2,1);
+disp('x''=');disp(x');
+y=DST8*x;                      % true result
+disp('y''=');disp(y');
+y1=Db8*inv(Da7)*DCT7*inv(B)*x;            % compute DSTVIII using DCTVII transform
+disp('y1''=');disp(y1');
+% Reference
+
+##### SOURCE END #####
+--></body></html>

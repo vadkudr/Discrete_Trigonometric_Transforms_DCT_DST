@@ -1,0 +1,303 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Calculation of DST_IV using DST_III</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-04-15">
+      <meta name="m-file" content="DSTIV_DSTIII"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Calculation of DST_IV using DST_III</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DST_IV matrix definition</a></li>
+               <li><a href="#3">DST_III matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DST_IV through DST_III</a></li>
+               <li><a href="#7">Check expression of DST_III through DST_IV</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DST_IV matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq503806.png"> </p><pre class="codeinput">N=8;
+DST4=sin(pi/N*[(0:N-1)+1/2]'*[(0:N-1)+1/2])
+</pre><pre class="codeoutput">
+DST4 =
+
+    0.0980    0.2903    0.4714    0.6344    0.7730    0.8819    0.9569    0.9952
+    0.2903    0.7730    0.9952    0.8819    0.4714   -0.0980   -0.6344   -0.9569
+    0.4714    0.9952    0.6344   -0.2903   -0.9569   -0.7730    0.0980    0.8819
+    0.6344    0.8819   -0.2903   -0.9952   -0.0980    0.9569    0.4714   -0.7730
+    0.7730    0.4714   -0.9569   -0.0980    0.9952   -0.2903   -0.8819    0.6344
+    0.8819   -0.0980   -0.7730    0.9569   -0.2903   -0.6344    0.9952   -0.4714
+    0.9569   -0.6344    0.0980    0.4714   -0.8819    0.9952   -0.7730    0.2903
+    0.9952   -0.9569    0.8819   -0.7730    0.6344   -0.4714    0.2903   -0.0980
+
+</pre><h2>DST_III matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq394846.png"> </p><pre class="codeinput">DST3=sin(pi/N*[(0:N-1)+1/2]'*[(0:N-1)+1])
+</pre><pre class="codeoutput">
+DST3 =
+
+    0.1951    0.3827    0.5556    0.7071    0.8315    0.9239    0.9808    1.0000
+    0.5556    0.9239    0.9808    0.7071    0.1951   -0.3827   -0.8315   -1.0000
+    0.8315    0.9239    0.1951   -0.7071   -0.9808   -0.3827    0.5556    1.0000
+    0.9808    0.3827   -0.8315   -0.7071    0.5556    0.9239   -0.1951   -1.0000
+    0.9808   -0.3827   -0.8315    0.7071    0.5556   -0.9239   -0.1951    1.0000
+    0.8315   -0.9239    0.1951    0.7071   -0.9808    0.3827    0.5556   -1.0000
+    0.5556   -0.9239    0.9808   -0.7071    0.1951    0.3827   -0.8315    1.0000
+    0.1951   -0.3827    0.5556   -0.7071    0.8315   -0.9239    0.9808   -1.0000
+
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>From [1] we know that DSTIV matrix can be expressed in terms of Tschebyshev polynomials</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq2093070.png"> </p>
+         <p>DSTIII matrix can be analogously expressed as</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq2025852.png"> </p>
+         <p>Because there exist relation</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq9864.png"> </p>
+         <p>we can express DSTIII through DSTIV</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq35765432.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq3762370.png"> </p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq616223.png"> </p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq616233.png"> </p>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq1431935.png"> </p><pre class="codeinput">B=diag(ones(1,N))+diag(ones(1,N-1),1);
+D=2*diag(cos(pi/2/N*((0:N-1)+1/2)));
+</pre><h2>Check expression of DST_IV through DST_III<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq226907.png"> </p>
+         <p>Check DSTIV matrix</p><pre class="codeinput">inv(D)*DST3*B
+</pre><pre class="codeoutput">
+ans =
+
+    0.0980    0.2903    0.4714    0.6344    0.7730    0.8819    0.9569    0.9952
+    0.2903    0.7730    0.9952    0.8819    0.4714   -0.0980   -0.6344   -0.9569
+    0.4714    0.9952    0.6344   -0.2903   -0.9569   -0.7730    0.0980    0.8819
+    0.6344    0.8819   -0.2903   -0.9952   -0.0980    0.9569    0.4714   -0.7730
+    0.7730    0.4714   -0.9569   -0.0980    0.9952   -0.2903   -0.8819    0.6344
+    0.8819   -0.0980   -0.7730    0.9569   -0.2903   -0.6344    0.9952   -0.4714
+    0.9569   -0.6344    0.0980    0.4714   -0.8819    0.9952   -0.7730    0.2903
+    0.9952   -0.9569    0.8819   -0.7730    0.6344   -0.4714    0.2903   -0.0980
+
+</pre><p>Check computation of DSTIII transform</p><pre class="codeinput">x=randn(1,N);
+y=x*DST4            <span class="comment">% true result</span>
+y1=x*inv(D)*DST3*B  <span class="comment">% compute DSTIV using DSTIII transform</span>
+</pre><pre class="codeoutput">
+y =
+
+   -2.7468   -0.8589    2.9686    0.3750   -0.0572    3.9822   -1.8763    0.3354
+
+
+y1 =
+
+   -2.7468   -0.8589    2.9686    0.3750   -0.0572    3.9822   -1.8763    0.3354
+
+</pre><h2>Check expression of DST_III through DST_IV<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTIV_DSTIII_eq219393.png"> </p>
+         <p>Check DSTIV matrix</p><pre class="codeinput">D*DST4*inv(B)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1951    0.3827    0.5556    0.7071    0.8315    0.9239    0.9808    1.0000
+    0.5556    0.9239    0.9808    0.7071    0.1951   -0.3827   -0.8315   -1.0000
+    0.8315    0.9239    0.1951   -0.7071   -0.9808   -0.3827    0.5556    1.0000
+    0.9808    0.3827   -0.8315   -0.7071    0.5556    0.9239   -0.1951   -1.0000
+    0.9808   -0.3827   -0.8315    0.7071    0.5556   -0.9239   -0.1951    1.0000
+    0.8315   -0.9239    0.1951    0.7071   -0.9808    0.3827    0.5556   -1.0000
+    0.5556   -0.9239    0.9808   -0.7071    0.1951    0.3827   -0.8315    1.0000
+    0.1951   -0.3827    0.5556   -0.7071    0.8315   -0.9239    0.9808   -1.0000
+
+</pre><p>Check computation of DSTIV transform</p><pre class="codeinput">y=x*DST3            <span class="comment">% true result</span>
+y1=x*D*DST4*inv(B)  <span class="comment">% compute DSTIV using DSTIII transform</span>
+</pre><pre class="codeoutput">
+y =
+
+   -3.0246    1.7402    2.2898   -1.0043    2.6802    1.6842   -2.4322    2.1756
+
+
+y1 =
+
+   -3.0246    1.7402    2.2898   -1.0043    2.6802    1.6842   -2.4322    2.1756
+
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Calculation of DST_IV using DST_III
+
+%% Definitions
+% Result of transform is
+% y=x*T, 
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DST_IV matrix definition
+%
+% $$\mathbf{DSTIV} = \left\{ sin \left( {\frac{\pi }{N}(k + \frac{1}{2})(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+N=8;
+DST4=sin(pi/N*[(0:N-1)+1/2]'*[(0:N-1)+1/2])
+
+%% DST_III matrix definition
+%
+% $$\mathbf{DSTIII} = \left\{ sin \left( {\frac{\pi }{N}(k + \frac{1}{2})(l + 1)} \right) \right\}_{k,l}$$
+%
+DST3=sin(pi/N*[(0:N-1)+1/2]'*[(0:N-1)+1])
+
+%% Finding relations
+% 
+% From [1] we know that DSTIV matrix can be expressed in terms of
+% Tschebyshev polynomials
+%
+% $${\mathbf {DSTIV}} = diag\left\{ {\sin \left( {\left( {k + \frac{1}{2}}
+% \right)\frac{\pi }{{2N}}} \right)} \right\}_k  \cdot \left[ {W_l \left(
+% {\alpha _k } \right)} \right]_{k,l} $$
+%
+% DSTIII matrix can be analogously expressed as
+%
+% $${\mathbf {DSTIII}} = diag\left\{ {\sin \left( {\left( {k + \frac{1}{2}}
+% \right)\frac{\pi }{N}} \right)} \right\}_k  \cdot \left[ {U_l \left(
+% {\alpha _k } \right)} \right]_{k,l} $$
+%
+% Because there exist relation
+% 
+% $$W_l  = U_l  + U_{l - 1} $$
+%
+% we can express DSTIII through DSTIV
+%
+% $$\begin{array}{l}
+%  {\mathbf {DSTIV}} = {\mathbf D}_{IV}  \cdot \left[ {W_l \left( {\alpha
+%  _k } \right)} \right]_{k,l}  = {\mathbf D}_{IV}  \cdot \left[ {U_l
+%  \left( {\alpha _k } \right)} \right]_{k,l}  \cdot {\mathbf B} =  \\ 
+%   = {\mathbf D}_{IV}  \cdot {\mathbf D}_{III} ^{ - 1}  \cdot {\mathbf
+%   D}_{III}  \cdot \left[ {U_l \left( {\alpha _k } \right)} \right]_{k,l}
+%   \cdot {\mathbf B} = {\mathbf D}^{ - 1} \cdot {\mathbf {DSTIII}} \cdot
+%   {\mathbf B} \\ 
+%  \end{array}$$
+%
+% where
+%
+% $${\mathbf B} = \left[ {\begin{array}{*{20}c}
+%    1 & 1 & {} & {} & {}  \\
+%    {} & 1 & 1 & {} & {}  \\
+%    {} & {} & 1 &  \ddots  & {}  \\
+%    {} & {} & {} &  \ddots  & 1  \\
+%    {} & {} & {} & {} & 1  \\
+% \end{array}} \right]$$
+%
+% $${\mathbf D}_{IV}  = diag\left\{ {\sin \left( {\left( {k + \frac{1}{2}}
+% \right)\frac{\pi }{{2N}}} \right)} \right\}_k $$
+%
+% $${\mathbf D}_{III}  = diag\left\{ {\sin \left( {\left( {k + \frac{1}{2}}
+% \right)\frac{\pi }{{N}}} \right)} \right\}_k $$
+%
+% $${\mathbf D} = \frac{{\mathbf D}_{III}}{{\mathbf D}_{IV}}= 2 diag\left\{ {\cos
+% \left( {\left( {k + \frac{1}{2}} \right)\frac{\pi }{{2N}}} \right)}
+% \right\}_k $$
+%
+B=diag(ones(1,N))+diag(ones(1,N-1),1);
+D=2*diag(cos(pi/2/N*((0:N-1)+1/2)));
+
+%% Check expression of DST_IV through DST_III
+%
+% $${\mathbf {DSTIV}} = {\mathbf D}^{ - 1}  \cdot {\mathbf {DSTIII}} \cdot {\mathbf B}$$
+%
+% Check DSTIV matrix
+inv(D)*DST3*B
+%%
+% Check computation of DSTIII transform
+x=randn(1,N);
+y=x*DST4            % true result
+y1=x*inv(D)*DST3*B  % compute DSTIV using DSTIII transform
+
+%% Check expression of DST_III through DST_IV
+%
+% $${\mathbf {DSTIII}} = {\mathbf D} \cdot {\mathbf {DSTIV}} \cdot {\mathbf B}^{ - 1}$$
+%
+% Check DSTIV matrix
+D*DST4*inv(B)
+%%
+% Check computation of DSTIV transform
+y=x*DST3            % true result
+y1=x*D*DST4*inv(B)  % compute DSTIV using DSTIII transform
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+##### SOURCE END #####
+-->
+   </body>
+</html>

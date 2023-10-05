@@ -1,0 +1,325 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Relations between DST_I and DST_II</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-06-26">
+      <meta name="m-file" content="DSTI_DSTII"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Relations between DST_I and DST_II</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DST_I matrix definition</a></li>
+               <li><a href="#3">DST_II matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DST_I through DST_II</a></li>
+               <li><a href="#7">Check expression of DST_II through DST_I</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DST_I matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq503894.png"> </p><pre class="codeinput">N=8;
+DST1=sin(pi/N*((0:N-2)+1)'*((0:N-2)+1))
+</pre><pre class="codeoutput">DST1 =
+    0.3827    0.7071    0.9239    1.0000    0.9239    0.7071    0.3827
+    0.7071    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071
+    0.9239    0.7071   -0.3827   -1.0000   -0.3827    0.7071    0.9239
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000
+    0.9239   -0.7071   -0.3827    1.0000   -0.3827   -0.7071    0.9239
+    0.7071   -1.0000    0.7071    0.0000   -0.7071    1.0000   -0.7071
+    0.3827   -0.7071    0.9239   -1.0000    0.9239   -0.7071    0.3827
+</pre><h2>DST_II matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq362571.png"> </p><pre class="codeinput">DST2=sin(pi/N*((0:N-1)+1)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DST2 =
+    0.1951    0.5556    0.8315    0.9808    0.9808    0.8315    0.5556    0.1951
+    0.3827    0.9239    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827
+    0.5556    0.9808    0.1951   -0.8315   -0.8315    0.1951    0.9808    0.5556
+    0.7071    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071
+    0.8315    0.1951   -0.9808    0.5556    0.5556   -0.9808    0.1951    0.8315
+    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827    0.3827   -0.9239
+    0.9808   -0.8315    0.5556   -0.1951   -0.1951    0.5556   -0.8315    0.9808
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>From [1] we know that DSTI matrix can be expressed in terms of Tschebyshev polynomials</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq1512098.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq258823.png"> </p>
+         <p>are roots of polynomial</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq14103.png"> </p>
+         <p>DSTII matrix can be analogously expressed as</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq1567333.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq267123.png"> </p>
+         <p>are roots of polynomial</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq72584.png"> </p>
+         <p>Because there exist relation</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq10766.png"> </p>
+         <p>and</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq33510.png"> </p>
+         <p>we can express DSTII through DSTI</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq145238812.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq4510246.png"> </p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq478115.png"> </p>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq453439.png"> </p><pre class="codeinput">B=diag(ones(1,N))+diag(ones(1,N-1),1); B(end,:)=(-1).^(0:N-1);
+D1=diag([sin(pi/N*((0:N-2)+1)), 1]);
+D2=diag(sin(pi/2/N*((0:N-1)+1)));
+</pre><h2>Check expression of DST_I through DST_II<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq2974166.png"> </p><pre class="codeinput">inv(D2)*D1*DST2*inv(B)
+</pre><pre class="codeoutput">ans =
+    0.3827    0.7071    0.9239    1.0000    0.9239    0.7071    0.3827   -0.0000
+    0.7071    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071    0.0000
+    0.9239    0.7071   -0.3827   -1.0000   -0.3827    0.7071    0.9239   -0.0000
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000   -0.0000
+    0.9239   -0.7071   -0.3827    1.0000   -0.3827   -0.7071    0.9239   -0.0000
+    0.7071   -1.0000    0.7071    0.0000   -0.7071    1.0000   -0.7071    0.0000
+    0.3827   -0.7071    0.9239   -1.0000    0.9239   -0.7071    0.3827   -0.0000
+    0.0000   -0.0000    0.0000   -0.0000    0.0000   -0.0000    0.0000    1.0000
+</pre><p>Check computation of DSTI transform</p><pre class="codeinput">x=randn(1,N-1)
+y=x*DST1                           <span class="comment">% true result</span>
+y1=[x 0]*inv(D2)*D1*DST2*inv(B)    <span class="comment">% compute DSTI using DSTII transform</span>
+</pre><pre class="codeoutput">x =
+    0.2120    0.2379   -1.0078   -0.7420    1.0823   -0.1315    0.3899
+y =
+   -0.3676   -1.2343    1.3448    1.9122   -0.2897   -1.9730    0.9660
+y1 =
+   -0.3676   -1.2343    1.3448    1.9122   -0.2897   -1.9730    0.9660   -0.0000
+</pre><h2>Check expression of DST_II through DST_I<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DSTI_DSTII_eq2683754.png"> </p><pre class="codeinput">DST1a=eye(N);DST1a(1:end-1,1:end-1)=DST1;
+D2*inv(D1)*DST1a*B
+</pre><pre class="codeoutput">ans =
+    0.1951    0.5556    0.8315    0.9808    0.9808    0.8315    0.5556    0.1951
+    0.3827    0.9239    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827
+    0.5556    0.9808    0.1951   -0.8315   -0.8315    0.1951    0.9808    0.5556
+    0.7071    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071
+    0.8315    0.1951   -0.9808    0.5556    0.5556   -0.9808    0.1951    0.8315
+    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827    0.3827   -0.9239
+    0.9808   -0.8315    0.5556   -0.1951   -0.1951    0.5556   -0.8315    0.9808
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+</pre><p>Check computation of DSTII transform</p><pre class="codeinput">x=randn(1,N)
+y=x*DST2                           <span class="comment">% true result</span>
+y1=x*D2*inv(D1)*DST1a*B            <span class="comment">% compute DSTII using DSTI transform</span>
+</pre><pre class="codeoutput">x =
+    0.0880   -0.6355   -0.5596    0.4437   -0.9499    0.7812    0.5690   -0.8217
+y =
+   -0.5550   -0.9089   -0.8097    0.8994   -1.0737    3.2332   -1.4077   -0.4960
+y1 =
+   -0.5550   -0.9089   -0.8097    0.8994   -1.0737    3.2332   -1.4077   -0.4960
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Relations between DST_I and DST_II
+
+%% Definitions
+% Result of transform is
+% y=x*T, 
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DST_I matrix definition
+%
+% $$\mathbf{DSTI} = \left\{sin\left( {\frac{\pi }{N} \left(k+1 \right)
+% \left(l+1 \right) } \right) \right\}_{k,l}$$
+%
+N=8;
+DST1=sin(pi/N*((0:N-2)+1)'*((0:N-2)+1))
+
+%% DST_II matrix definition
+%
+% $$\mathbf{DSTII} = \left\{ sin \left( {\frac{\pi }{N}(k+1)(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+DST2=sin(pi/N*((0:N-1)+1)'*((0:N-1)+1/2))
+
+%% Finding relations
+%
+% From [1] we know that DSTI matrix can be expressed in terms of
+% Tschebyshev polynomials
+%
+% $${\mathbf {DSTI}} = diag\left\{ {\sin \left( {\left(k+1 \right)
+% \frac{\pi }{N}} \right)} \right\}_k  \cdot \left[ {W_l \left(
+% {\beta _k } \right)} \right]_{k,l} $$
+%
+% where
+%
+% $$\alpha _k  = \cos \left( {\left( {k} \right)\frac{\pi }{{N}}}
+% \right),k = 1 \ldots N-1$$
+%
+% are roots of polynomial
+%
+% $$ U_{DSTI} (x) = U_{N-1} (x) $$
+%
+% DSTII matrix can be analogously expressed as
+%
+% $${\mathbf {DSTII}} = diag\left\{ {\sin \left( {\left(k+1 \right)
+% \frac{\pi }{2N}} \right)} \right\}_k  \cdot \left[ {W_l \left(
+% {\beta _k } \right)} \right]_{k,l} $$
+%
+% where
+%
+% $$ \beta _k  = \cos \left( { \left( {k} \right) \frac{\pi }{{N}}}
+% \right),k = 1 \ldots N $$
+%
+% are roots of polynomial
+%
+% $$ U_{DSTII} (x) = 2\left( {x + 1} \right)U_{N - 1} (x) $$
+%
+% Because there exist relation
+% 
+% $$ W_l  = U_l  + U_{l - 1} $$
+%
+% and
+%
+% $$ \alpha _k = \beta _k, k = 1 \ldots N-1 $$
+%
+% we can express DSTII through DSTI
+%
+% $$ \begin{array}{l}
+%  {\mathbf {DSTII}} = {\mathbf D}_{DSTII}  \cdot \left[ {W_l \left( {\alpha _k } \right)} \right]_{k,l}  = {\mathbf D}_{DSTII}  \cdot \left[ {\begin{array}{*{20}c}
+%    {\left[ {U_l \left( {\alpha _k } \right)} \right]_{k,l} } & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} =  \\ 
+%   = {\mathbf D}_{DSTII}  \cdot {\mathbf D}_{DSTI}^{ - 1}  \cdot {\mathbf D}_{DSTI}  \cdot \left[ {\begin{array}{*{20}c}
+%    {\left[ {U_l \left( {\alpha _k } \right)} \right]_{k,l} } & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} =  \\ 
+%   = {\mathbf D}_{DSTII}  \cdot {\mathbf D}_{DSTI}^{ - 1}  \cdot \left[ {\begin{array}{*{20}c}
+%    {{\mathbf {DSTI}}} & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} \\ 
+%  \end{array} $$
+%
+% where
+%
+% $${\mathbf B} = \left[ {\begin{array}{*{20}c}
+%    1 & 1 & {} & {} & {}  \\
+%    {} & 1 & 1 & {} & {}  \\
+%    {} & {} &  \ddots  &  \ddots  & {}  \\
+%    {} & {} & {} & 1 & 1  \\
+%    1 & { - 1} &  \cdots  & 1 & { - 1}  \\
+% \end{array}} \right] $$
+%
+% $${\mathbf D_{DSTI}} = diag\left\{ {\sin \left( {\left(k+1\right) \frac{\pi
+% }{{N}}} \right)} , 1 \right\} _k $$ 
+%
+% $${\mathbf D_{DSTII}} = diag\left\{ {\sin \left( {\left(k+1\right) \frac{\pi
+% }{{2N}}} \right)} \right\} _k $$ 
+%
+B=diag(ones(1,N))+diag(ones(1,N-1),1); B(end,:)=(-1).^(0:N-1);
+D1=diag([sin(pi/N*((0:N-2)+1)), 1]);
+D2=diag(sin(pi/2/N*((0:N-1)+1)));
+
+%% Check expression of DST_I through DST_II
+%
+% $$ \left[ {\begin{array}{*{20}c}
+%    {{\mathbf {DSTI}}} & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] = {\mathbf D}_{DSTII}^{ - 1}  \cdot {\mathbf D}_{DSTI}  \cdot {\mathbf {DSTII}} \cdot {\mathbf B}^{ - 1} $$ 
+%
+inv(D2)*D1*DST2*inv(B)
+
+%%
+% Check computation of DSTI transform
+x=randn(1,N-1)
+y=x*DST1                           % true result
+y1=[x 0]*inv(D2)*D1*DST2*inv(B)    % compute DSTI using DSTII transform
+
+%% Check expression of DST_II through DST_I
+%
+% $$ {\mathbf {DSTII}} = {\mathbf D}_{DSTII}  \cdot {\mathbf D}_{DSTI}^{ - 1}  \cdot \left[ {\begin{array}{*{20}c}
+%    {{\mathbf {DSTI}}} & {}  \\
+%    {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} $$
+%
+DST1a=eye(N);DST1a(1:end-1,1:end-1)=DST1;
+D2*inv(D1)*DST1a*B
+%%
+% Check computation of DSTII transform
+x=randn(1,N)
+y=x*DST2                           % true result
+y1=x*D2*inv(D1)*DST1a*B            % compute DSTII using DSTI transform
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

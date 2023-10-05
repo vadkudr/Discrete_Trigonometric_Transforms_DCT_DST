@@ -1,0 +1,271 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Calculation of DCT_IV using DCT_II (alternative)</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-05-14">
+      <meta name="m-file" content="DCTIV_DCTIIa"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Calculation of DCT_IV using DCT_II (alternative)</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DCT_IV matrix definition</a></li>
+               <li><a href="#3">DCT_II matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DCT_II through DCT_IV</a></li>
+               <li><a href="#7">Check expression of DCT_IV through DCT_II</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DCT_IV matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq503785.png"> </p><pre class="codeinput">N=8;
+DCT4=cos(pi/N*[(0:N-1)+1/2]'*[(0:N-1)+1/2])
+</pre><pre class="codeoutput">DCT4 =
+    0.9952    0.9569    0.8819    0.7730    0.6344    0.4714    0.2903    0.0980
+    0.9569    0.6344    0.0980   -0.4714   -0.8819   -0.9952   -0.7730   -0.2903
+    0.8819    0.0980   -0.7730   -0.9569   -0.2903    0.6344    0.9952    0.4714
+    0.7730   -0.4714   -0.9569    0.0980    0.9952    0.2903   -0.8819   -0.6344
+    0.6344   -0.8819   -0.2903    0.9952   -0.0980   -0.9569    0.4714    0.7730
+    0.4714   -0.9952    0.6344    0.2903   -0.9569    0.7730    0.0980   -0.8819
+    0.2903   -0.7730    0.9952   -0.8819    0.4714    0.0980   -0.6344    0.9569
+    0.0980   -0.2903    0.4714   -0.6344    0.7730   -0.8819    0.9569   -0.9952
+</pre><h2>DCT_II matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq303491.png"> </p><pre class="codeinput">DCT2=cos(pi/N*(0:N-1)'*((0:N-1)+1/2))
+</pre><pre class="codeoutput">DCT2 =
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    0.9808    0.8315    0.5556    0.1951   -0.1951   -0.5556   -0.8315   -0.9808
+    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827    0.3827    0.9239
+    0.8315   -0.1951   -0.9808   -0.5556    0.5556    0.9808    0.1951   -0.8315
+    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071    0.7071
+    0.5556   -0.9808    0.1951    0.8315   -0.8315   -0.1951    0.9808   -0.5556
+    0.3827   -0.9239    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827
+    0.1951   -0.5556    0.8315   -0.9808    0.9808   -0.8315    0.5556   -0.1951
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>We will base our derivation on already existing relations between DCT_IV and DCT_III transforms</p>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq630959.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq558162.png"> </p>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq3762370.png"> </p>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq101036.png"> </p>
+         <p>Applying relation between DCT_III and DCT_II matrix</p>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq36204.png"> </p>
+         <p>we will get</p>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq661848.png"> </p><pre class="codeinput">B=diag(ones(1,N))+diag(ones(1,N-1),1);
+D=2*diag(cos(pi/2/N*((0:N-1)+1/2)));
+<span class="comment">% K=diag((-1).^(0:N-1));</span>
+J=rot90(eye(N));
+</pre><h2>Check expression of DCT_II through DCT_IV<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq646316.png"> </p>
+         <p>Check DCTIII matrix</p><pre class="codeinput">J*inv(B')*J*DCT4*D
+</pre><pre class="codeoutput">ans =
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    0.9808    0.8315    0.5556    0.1951   -0.1951   -0.5556   -0.8315   -0.9808
+    0.9239    0.3827   -0.3827   -0.9239   -0.9239   -0.3827    0.3827    0.9239
+    0.8315   -0.1951   -0.9808   -0.5556    0.5556    0.9808    0.1951   -0.8315
+    0.7071   -0.7071   -0.7071    0.7071    0.7071   -0.7071   -0.7071    0.7071
+    0.5556   -0.9808    0.1951    0.8315   -0.8315   -0.1951    0.9808   -0.5556
+    0.3827   -0.9239    0.9239   -0.3827   -0.3827    0.9239   -0.9239    0.3827
+    0.1951   -0.5556    0.8315   -0.9808    0.9808   -0.8315    0.5556   -0.1951
+</pre><p>Check computation of DCTII transform</p><pre class="codeinput">x=randn(1,N)
+y=x*DCT2                <span class="comment">% true result</span>
+y1=x*J*inv(B')*J*DCT4*D  <span class="comment">% compute DCTII using DCTIV transform</span>
+</pre><pre class="codeoutput">x =
+   -2.1707   -0.0592   -1.0106    0.6145    0.5077    1.6924    0.5913   -0.6436
+y =
+   -1.2515   -4.9342   -2.4372    0.5813   -2.7897   -0.7562   -1.9913   -3.7866
+y1 =
+   -1.2515   -4.9342   -2.4372    0.5813   -2.7897   -0.7562   -1.9913   -3.7866
+</pre><h2>Check expression of DCT_IV through DCT_II<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTIV_DCTIIa_eq631032.png"> </p><pre class="codeinput">J*B'*J*DCT2*inv(D)
+</pre><pre class="codeoutput">ans =
+    0.9952    0.9569    0.8819    0.7730    0.6344    0.4714    0.2903    0.0980
+    0.9569    0.6344    0.0980   -0.4714   -0.8819   -0.9952   -0.7730   -0.2903
+    0.8819    0.0980   -0.7730   -0.9569   -0.2903    0.6344    0.9952    0.4714
+    0.7730   -0.4714   -0.9569    0.0980    0.9952    0.2903   -0.8819   -0.6344
+    0.6344   -0.8819   -0.2903    0.9952   -0.0980   -0.9569    0.4714    0.7730
+    0.4714   -0.9952    0.6344    0.2903   -0.9569    0.7730    0.0980   -0.8819
+    0.2903   -0.7730    0.9952   -0.8819    0.4714    0.0980   -0.6344    0.9569
+    0.0980   -0.2903    0.4714   -0.6344    0.7730   -0.8819    0.9569   -0.9952
+</pre><p>Check computation of DCTIV transform</p><pre class="codeinput">y=x*DCT4                <span class="comment">% true result</span>
+y1=x*J*B'*J*DCT2*inv(D)  <span class="comment">% compute DCTIV using DCTII transform</span>
+</pre><pre class="codeoutput">y =
+   -1.4047   -4.9058   -0.5156    0.2607   -2.3081    0.0208   -2.7178   -0.9556
+y1 =
+   -1.4047   -4.9058   -0.5156    0.2607   -2.3081    0.0208   -2.7178   -0.9556
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Calculation of DCT_IV using DCT_II (alternative)
+
+%% Definitions
+% Result of transform is
+% y=x*T, 
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DCT_IV matrix definition
+%
+% $$\mathbf{DCTIV} = \left\{ cos \left( {\frac{\pi }{N}(k + \frac{1}{2})(l + \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+
+N=8;
+DCT4=cos(pi/N*[(0:N-1)+1/2]'*[(0:N-1)+1/2])
+
+%% DCT_II matrix definition
+%
+% $$\mathbf{DCTII} = \left\{cos\left( {\frac{\pi }{N}k(l +
+% \frac{1}{2})} \right) \right\}_{k,l}$$
+%
+DCT2=cos(pi/N*(0:N-1)'*((0:N-1)+1/2))
+
+%% Finding relations
+%
+% We will base our derivation on already existing relations between DCT_IV
+% and DCT_III transforms
+%
+% $${\mathbf{ DCTIII}} = {\mathbf D} \cdot {\mathbf {DCTIV}} \cdot {\mathbf J} \cdot {\mathbf B}^{
+% - 1}  \cdot {\mathbf J}$$
+%
+% where
+%
+% $${\mathbf D} = 2 diag\left\{ {\cos
+% \left( {\left( {k + \frac{1}{2}} \right)\frac{\pi }{{2N}}} \right)}
+% \right\}_k $$
+%
+% $${\mathbf B} = \left[ {\begin{array}{*{20}c}
+%    1 & 1 & {} & {} & {}  \\
+%    {} & 1 & 1 & {} & {}  \\
+%    {} & {} & 1 &  \ddots  & {}  \\
+%    {} & {} & {} &  \ddots  & 1  \\
+%    {} & {} & {} & {} & 1  \\
+% \end{array}} \right]$$
+%
+% $${\mathbf J} = antidiag\left\{ 1 \right\},k = 0, \ldots ,N - 1$$
+%
+% Applying relation between DCT_III and DCT_II matrix
+%
+% $${\mathbf{ DCTIII}} = {\mathbf{ DCTII}}^T $$
+%
+% we will get
+%
+% $${\mathbf{ DCTII}} = {\mathbf J} \cdot {\mathbf B^T}^{ - 1}  \cdot
+% {\mathbf J} \cdot {\mathbf {DCTIV}} \cdot {\mathbf D} $$
+%
+
+B=diag(ones(1,N))+diag(ones(1,N-1),1);
+D=2*diag(cos(pi/2/N*((0:N-1)+1/2)));
+% K=diag((-1).^(0:N-1));
+J=rot90(eye(N));
+
+%% Check expression of DCT_II through DCT_IV
+%
+% $${\mathbf{ DCTII}} = {\mathbf J} \cdot {\mathbf B^T}^{ - 1} \cdot
+% {\mathbf J} \cdot {\mathbf {DCTIV}} \cdot {\mathbf D} $$
+%
+% Check DCTIII matrix
+J*inv(B')*J*DCT4*D
+%%
+% Check computation of DCTII transform
+x=randn(1,N)
+y=x*DCT2                % true result
+y1=x*J*inv(B')*J*DCT4*D  % compute DCTII using DCTIV transform
+
+%% Check expression of DCT_IV through DCT_II
+%
+% $${\mathbf {DCTIV}} = {\mathbf J} \cdot {\mathbf B^T} \cdot {\mathbf J}
+% \cdot {\mathbf {DCTII}} \cdot {\mathbf D}^{ - 1}$$
+%
+J*B'*J*DCT2*inv(D)
+%%
+% Check computation of DCTIV transform
+y=x*DCT4                % true result
+y1=x*J*B'*J*DCT2*inv(D)  % compute DCTIV using DCTII transform
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

@@ -1,0 +1,375 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Relations between DCT_I and DST_I</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-06-27">
+      <meta name="m-file" content="DCTI_DSTI"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Relations between DCT_I and DST_I</h1>
+         <introduction></introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Definitions</a></li>
+               <li><a href="#2">DCT_I matrix definition</a></li>
+               <li><a href="#3">DST_I matrix definition</a></li>
+               <li><a href="#4">Finding relations</a></li>
+               <li><a href="#5">Check expression of DCT_I through DST_I</a></li>
+               <li><a href="#7">Check expression of DST_I through DCT_I</a></li>
+               <li><a href="#9">Reference</a></li>
+            </ul>
+         </div>
+         <h2>Definitions<a name="1"></a></h2>
+         <p>Result of transform is y=x*T, where y, x are row-vectors       T    is transform matrix</p>
+         <h2>DCT_I matrix definition<a name="2"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq177923.png"> </p><pre class="codeinput">N=8;
+DCT1=cos(pi/N*(0:N)'*(0:N))
+</pre><pre class="codeoutput">DCT1 =
+  Columns 1 through 8
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9239    0.7071    0.3827    0.0000   -0.3827   -0.7071   -0.9239
+    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071   -0.0000    0.7071
+    1.0000    0.3827   -0.7071   -0.9239   -0.0000    0.9239    0.7071   -0.3827
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000   -0.0000
+    1.0000   -0.3827   -0.7071    0.9239    0.0000   -0.9239    0.7071    0.3827
+    1.0000   -0.7071   -0.0000    0.7071   -1.0000    0.7071    0.0000   -0.7071
+    1.0000   -0.9239    0.7071   -0.3827   -0.0000    0.3827   -0.7071    0.9239
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+  Column 9
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+</pre><h2>DST_I matrix definition<a name="3"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq503894.png"> </p><pre class="codeinput">DST1=sin(pi/N*((0:N-2)+1)'*((0:N-2)+1))
+</pre><pre class="codeoutput">DST1 =
+    0.3827    0.7071    0.9239    1.0000    0.9239    0.7071    0.3827
+    0.7071    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071
+    0.9239    0.7071   -0.3827   -1.0000   -0.3827    0.7071    0.9239
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000
+    0.9239   -0.7071   -0.3827    1.0000   -0.3827   -0.7071    0.9239
+    0.7071   -1.0000    0.7071    0.0000   -0.7071    1.0000   -0.7071
+    0.3827   -0.7071    0.9239   -1.0000    0.9239   -0.7071    0.3827
+</pre><h2>Finding relations<a name="4"></a></h2>
+         <p>From [1] we know that DCTI matrix can be expressed in terms of Tschebyshev polynomials</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq171151.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq312072.png"> </p>
+         <p>are roots of polynomial</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq79873.png"> </p>
+         <p>DSTI matrix can be analogously expressed as</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq1512098.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq258823.png"> </p>
+         <p>are roots of polynomial</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq14103.png"> </p>
+         <p>Because there exist relation</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq29592.png"> </p>
+         <p>and</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq33510.png"> </p>
+         <p>we can express DCTI through DSTI</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq98524395.png"> </p>
+         <p>where</p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq20726128.png"> </p>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq453011.png"> </p><pre class="codeinput">B=diag(ones(1,N+1))-diag(ones(1,N-1),2); B=B(1:end-2,:); B(1,1)=2; B(end,end)=-2; B=[ones(1,N+1);B/2;(-1).^(0:N)];
+D=diag([1, sin(pi/N*((0:N-2)+1)), 1]);
+</pre><h2>Check expression of DCT_I through DST_I<a name="5"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq2412091.png"> </p><pre class="codeinput">DST1a=eye(N+1);DST1a(2:end-1,2:end-1)=DST1;
+inv(D)*DST1a*B
+</pre><pre class="codeoutput">ans =
+  Columns 1 through 8
+    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    0.9239    0.7071    0.3827         0   -0.3827   -0.7071   -0.9239
+    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071   -0.0000    0.7071
+    1.0000    0.3827   -0.7071   -0.9239   -0.0000    0.9239    0.7071   -0.3827
+    1.0000    0.0000   -1.0000   -0.0000    1.0000    0.0000   -1.0000   -0.0000
+    1.0000   -0.3827   -0.7071    0.9239    0.0000   -0.9239    0.7071    0.3827
+    1.0000   -0.7071   -0.0000    0.7071   -1.0000    0.7071    0.0000   -0.7071
+    1.0000   -0.9239    0.7071   -0.3827   -0.0000    0.3827   -0.7071    0.9239
+    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000    1.0000   -1.0000
+  Column 9
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+   -1.0000
+    1.0000
+</pre><p>Check computation of DCT_I transform</p><pre class="codeinput">x=randn(1,N+1)
+y=x*DCT1                            <span class="comment">% true result</span>
+y1=x*inv(D)*DST1a*B                 <span class="comment">% compute DCTI using DSTI transform</span>
+</pre><pre class="codeoutput">x =
+  Columns 1 through 8
+   -1.2090   -0.7826   -0.7673   -0.1072   -0.9771   -0.9640   -2.3792   -0.8382
+  Column 9
+    0.2573
+y =
+  Columns 1 through 8
+   -7.7672    0.0526   -0.3632   -3.3764    1.2178   -1.8358    0.4141   -0.7058
+  Column 9
+   -2.3832
+y1 =
+  Columns 1 through 8
+   -7.7672    0.0526   -0.3632   -3.3764    1.2178   -1.8358    0.4141   -0.7058
+  Column 9
+   -2.3832
+</pre><h2>Check expression of DST_I through DCT_I<a name="7"></a></h2>
+         <p><img vspace="5" hspace="5" src="DCTI_DSTI_eq2375003.png"> </p><pre class="codeinput">D*DCT1*inv(B)
+</pre><pre class="codeoutput">ans =
+  Columns 1 through 8
+    1.0000         0         0   -0.0000         0         0         0         0
+    0.0000    0.3827    0.7071    0.9239    1.0000    0.9239    0.7071    0.3827
+   -0.0000    0.7071    1.0000    0.7071    0.0000   -0.7071   -1.0000   -0.7071
+   -0.0000    0.9239    0.7071   -0.3827   -1.0000   -0.3827    0.7071    0.9239
+   -0.0000    1.0000    0.0000   -1.0000         0    1.0000    0.0000   -1.0000
+   -0.0000    0.9239   -0.7071   -0.3827    1.0000   -0.3827   -0.7071    0.9239
+   -0.0000    0.7071   -1.0000    0.7071    0.0000   -0.7071    1.0000   -0.7071
+    0.0000    0.3827   -0.7071    0.9239   -1.0000    0.9239   -0.7071    0.3827
+         0         0         0   -0.0000         0         0         0         0
+  Column 9
+         0
+    0.0000
+    0.0000
+    0.0000
+    0.0000
+   -0.0000
+    0.0000
+   -0.0000
+    1.0000
+</pre><p>Check computation of DCTII transform</p><pre class="codeinput">x=randn(1,N-1)
+y=x*DST1                            <span class="comment">% true result</span>
+y1=[0 x 0]*D*DCT1*inv(B)            <span class="comment">% compute DSTI using DCTI transform</span>
+</pre><pre class="codeoutput">x =
+   -0.1838   -0.1676   -0.1170    0.1685   -0.5012   -0.7051    0.5082
+y =
+   -0.8956    0.3198   -0.2494   -1.0762    1.3218   -0.7551    0.0016
+y1 =
+  Columns 1 through 8
+    0.0000   -0.8956    0.3198   -0.2494   -1.0762    1.3218   -0.7551    0.0016
+  Column 9
+   -0.0000
+</pre><h2>Reference<a name="9"></a></h2>
+         <p>[1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete Cosine and Sine Transforms and their Fast Algorithms
+            SIAM Journal of Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+%% Relations between DCT_I and DST_I
+
+%% Definitions
+% Result of transform is
+% y=x*T,
+% where y, x are row-vectors
+%       T    is transform matrix
+
+%% DCT_I matrix definition
+%
+% $$\mathbf{DCTI} = \left\{cos\left( {\frac{\pi }{N}kl } \right) \right\}_{k,l}$$
+%
+N=8;
+DCT1=cos(pi/N*(0:N)'*(0:N))
+%% DST_I matrix definition
+%
+% $$\mathbf{DSTI} = \left\{sin\left( {\frac{\pi }{N} \left(k+1 \right)
+% \left(l+1 \right) } \right) \right\}_{k,l}$$
+%
+DST1=sin(pi/N*((0:N-2)+1)'*((0:N-2)+1))
+
+%% Finding relations
+%
+% From [1] we know that DCTI matrix can be expressed in terms of
+% Tschebyshev polynomials
+%
+% $${\mathbf {DCTI}} = \left[ {T_l \left( {\alpha _k } \right)}
+% \right]_{k,l} $$
+%
+% where
+%
+% $$\alpha _k  = \cos \left( {\left( {k + 1} \right)\frac{\pi }{{N + 1}}}
+% \right),k = 0 \ldots N$$
+%
+% are roots of polynomial
+%
+% $$ U_{DCTI} (x) = 2\left( {x^2  - 1} \right)U_{N - 1} (x) $$
+%
+% DSTI matrix can be analogously expressed as
+%
+% $${\mathbf {DSTI}} = diag\left\{ {\sin \left( {\left(k+1 \right)
+% \frac{\pi }{N}} \right)} \right\}_k  \cdot \left[ {W_l \left(
+% {\beta _k } \right)} \right]_{k,l} $$
+%
+% where
+%
+% $$\alpha _k  = \cos \left( {\left( {k} \right)\frac{\pi }{{N}}}
+% \right),k = 1 \ldots N-1$$
+%
+% are roots of polynomial
+%
+% $$ U_{DSTI} (x) = U_{N-1} (x) $$
+%
+% Because there exist relation
+% 
+% $$ T_l  = \frac{{U_l  + U_{l - 2} }}{2} $$
+%
+% and
+%
+% $$ \alpha _k = \beta _k, k = 1 \ldots N-1 $$
+%
+% we can express DCTI through DSTI
+%
+% $$ \begin{array}{l}
+%  {\mathbf {DCTI}} = \left[ {T_l (\alpha _k )} \right]_{k,l}  = \left[ {\begin{array}{*{20}c}
+%    1 & {} & {}  \\
+%    {} & {\left[ {U_l (\alpha _k )} \right]_{k,l} } & {}  \\
+%    {} & {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} =  \\ 
+%   = {\mathbf D}^{ - 1} \cdot {\mathbf D} \cdot \left[ {\begin{array}{*{20}c}
+%    1 & {} & {}  \\
+%    {} & {\left[ {U_l (\alpha _k )} \right]_{k,l} } & {}  \\
+%    {} & {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} =  \\ 
+%   = {\mathbf D}^{ - 1} \cdot \left[ {\begin{array}{*{20}c}
+%    1 & {} & {}  \\
+%    {} & {{\mathbf {DSTI}}} & {}  \\
+%    {} & {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} \\ 
+%  \end{array}$$
+%
+% where
+%
+% $$ {\mathbf B} = \frac{1}{2}\left[ {\begin{array}{*{20}c}
+%    2 & 2 & 2 &  \cdots  & 2 & 2 & 2  \\
+%    2 & {} & { - 1} & {} & {} & {} & {}  \\
+%    {} & 1 & {} &  \ddots  & {} & {} & {}  \\
+%    {} & {} & 1 & {} & { - 1} & {} & {}  \\
+%    {} & {} & {} &  \ddots  & {} & { - 1} & {}  \\
+%    {} & {} & {} & {} & 1 & {} & { - 2}  \\
+%    2 & { - 2} & 2 &  \cdots  & 2 & { - 2} & 2  \\
+% \end{array}} \right] $$
+%
+% $${\mathbf D} = diag\left\{ 1, {\sin \left( {\left( k+1 \right) \frac{\pi
+% }{{N}}} \right) , 1 } \right\} _k$$ 
+%
+
+B=diag(ones(1,N+1))-diag(ones(1,N-1),2); B=B(1:end-2,:); B(1,1)=2; B(end,end)=-2; B=[ones(1,N+1);B/2;(-1).^(0:N)];
+D=diag([1, sin(pi/N*((0:N-2)+1)), 1]);
+
+%% Check expression of DCT_I through DST_I
+%
+% $$ {\mathbf {DCTI}} = {\mathbf D}^{ - 1} \cdot \left[ {\begin{array}{*{20}c}
+%    1 & {} & {}  \\
+%    {} & {{\mathbf {DSTI}}} & {}  \\
+%    {} & {} & 1  \\
+% \end{array}} \right] \cdot {\mathbf B} $$
+%
+DST1a=eye(N+1);DST1a(2:end-1,2:end-1)=DST1;
+inv(D)*DST1a*B
+
+%%
+% Check computation of DCT_I transform
+x=randn(1,N+1)
+y=x*DCT1                            % true result
+y1=x*inv(D)*DST1a*B                 % compute DCTI using DSTI transform
+
+%% Check expression of DST_I through DCT_I
+%
+% $$ \left[ {\begin{array}{*{20}c}
+%    1 & {} & {}  \\
+%    {} & {{\mathbf {DSTI}}} & {}  \\
+%    {} & {} & 1  \\
+% \end{array}} \right] = {\mathbf D} \cdot {\mathbf {DCTI}} \cdot
+% {\mathbf B}^{ - 1}$$
+%
+D*DCT1*inv(B)
+%%
+% Check computation of DCTII transform
+x=randn(1,N-1)
+y=x*DST1                            % true result
+y1=[0 x 0]*D*DCT1*inv(B)            % compute DSTI using DCTI transform
+
+
+%% Reference
+% [1] Markus Pueschel, Jose M.F. Moura. The Algebraic Approach to the Discrete
+% Cosine and Sine Transforms and their Fast Algorithms SIAM Journal of
+% Computing 2003, Vol. 32, No. 5, pp. 1280-1316.
+
+##### SOURCE END #####
+-->
+   </body>
+</html>
